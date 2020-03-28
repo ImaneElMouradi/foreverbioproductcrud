@@ -25,7 +25,7 @@ class Header extends Component {
           <a className="navbar-brand" href="#">
             Forever<em className="text-success">BIO </em>: Product Management
           </a>
-          <div class="search-container ml-auto mr-2">
+          <div className="search-container ml-auto mr-2">
             <input
               type="text"
               placeholder="Search.."
@@ -33,7 +33,7 @@ class Header extends Component {
               onChange={this.handleChange}
             />
             <button type="submit" onClick={this.handleSubmit}>
-              <i class="fa fa-search"></i>
+              <i className="fa fa-search"></i>
             </button>
           </div>
 
