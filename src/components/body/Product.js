@@ -1,12 +1,26 @@
 import React, { Component } from "react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import "../../css/body/Product.css";
 
 import axios from "axios";
 
 class Product extends Component {
+  state = {
+    modalDeleteProduct: false
+  };
+
+  toggleModalDeleteProduct = () => {
+    this.setState(prevState => ({
+      modalDeleteProduct: !prevState.modalDeleteProduct
+    }));
+  };
+
   handleDelete = () => {
     console.log("delete", this.props.product.id);
+    axios.delete(`http://localhost:9092/product/${this.props.product.id}`);
+    this.toggleModalDeleteProduct();
+    this.props.fetchProducts();
   };
 
   handleUpdate = id => {
@@ -63,7 +77,7 @@ class Product extends Component {
             </li>
           </ul>
           <div className="card-body m-auto">
-            <button className="delete" onClick={this.handleDelete}>
+            <button className="delete" onClick={this.toggleModalDeleteProduct}>
               <i className="fas fa-trash-alt"></i>
             </button>
             <button className="update" onClick={this.handleUpdate}>
@@ -71,6 +85,24 @@ class Product extends Component {
             </button>
           </div>
         </div>
+
+        <Modal
+          isOpen={this.state.modalDeleteProduct}
+          toggle={this.toggleModalDeleteProduct}
+        >
+          <ModalHeader toggle={this.toggleModalDeleteProduct}>
+            Confirmation de la suppression
+          </ModalHeader>
+          <ModalBody>Êtes-vous sûr de vouloir supprimer cet élément?</ModalBody>
+          <ModalFooter>
+            <Button color="danger" onClick={this.handleDelete}>
+              Supprimer
+            </Button>
+            <Button color="secondary" onClick={this.toggleModalDeleteProduct}>
+              Annuler
+            </Button>
+          </ModalFooter>
+        </Modal>
       </>
     );
   }

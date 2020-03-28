@@ -5,17 +5,30 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  InputGroup,
   FormGroup,
   Label,
   Input
 } from "reactstrap";
 
+import axios from "axios";
+
 import "../../css/body/AddProduct.css";
 
 class AddProduct extends Component {
   state = {
-    modalNewProduct: false
+    modalNewProduct: false,
+    idCat: "",
+    nom: "",
+    description: "",
+    source: "",
+    etat: "",
+    prix: "",
+    qte: "",
+    url: ""
+  };
+
+  handleOnChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   toggleNewProductModal = () => {
@@ -23,6 +36,36 @@ class AddProduct extends Component {
       modalNewProduct: !prevState.modalNewProduct
     }));
   };
+
+  handleAddProduct = () => {
+    const {
+      idCat,
+      nom,
+      description,
+      source,
+      etat,
+      prix,
+      qte,
+      url
+    } = this.state;
+    axios
+      .post("http://localhost:9092/product", {
+        idCat,
+        nom,
+        description,
+        source,
+        etat,
+        prix,
+        qte,
+        url
+      })
+      .then(() => {
+        console.log("produit ajouté");
+        this.toggleNewProductModal();
+        this.props.fetchProducts();
+      });
+  };
+
   render() {
     return (
       <>
@@ -39,28 +82,41 @@ class AddProduct extends Component {
             </ModalHeader>
             <ModalBody>
               <FormGroup>
-                <Label>Numéro</Label>
-                <Input placeholder="Id..."></Input>
-              </FormGroup>
-              <FormGroup>
                 <Label>Numéro de la catégorie</Label>
-                <Input placeholder="Id catégorie..."></Input>
+                <Input
+                  placeholder="Id catégorie..."
+                  name="idCat"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Label>Nom</Label>
-                <Input placeholder="Nom..."></Input>
+                <Input
+                  placeholder="Nom..."
+                  name="nom"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Label>Description</Label>
-                <Input placeholder="Description..."></Input>
+                <Input
+                  placeholder="Description..."
+                  name="description"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Label>Provenance et source</Label>
-                <Input placeholder="Source..."></Input>
+                <Input
+                  placeholder="Source..."
+                  name="source"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Label>Etat</Label>
-                <Input type="select" name="select" id="etat">
+                <Input type="select" name="etat" onChange={this.handleOnChange}>
+                  {/* <option>Choisir une option</option> */}
                   <option>Vente</option>
                   <option>Rupture de stock</option>
                   <option>Approvisionnement</option>
@@ -68,21 +124,35 @@ class AddProduct extends Component {
               </FormGroup>
               <FormGroup>
                 <Label>Prix en DH</Label>
-                <Input placeholder="Prix..."></Input>
+                <Input
+                  placeholder="Prix..."
+                  name="prix"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Label>Quantité</Label>
-                <Input placeholder="Quantité..."></Input>
+                <Input
+                  placeholder="Quantité..."
+                  name="qte"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
               <FormGroup>
                 <Label>L'url de l'image</Label>
-                <Input placeholder="Url..."></Input>
+                <Input
+                  placeholder="Url..."
+                  name="url"
+                  onChange={this.handleOnChange}
+                ></Input>
               </FormGroup>
             </ModalBody>
             <ModalFooter>
-              <Button color="success">Ajouter Produit</Button>
+              <Button color="success" onClick={this.handleAddProduct}>
+                Ajouter Produit
+              </Button>
               <Button color="secondary" onClick={this.toggleNewProductModal}>
-                Cancel
+                Annuler
               </Button>
             </ModalFooter>
           </Modal>
