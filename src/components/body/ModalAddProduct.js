@@ -14,7 +14,7 @@ import axios from "axios";
 
 import "../../css/body/AddProduct.css";
 
-class AddProduct extends Component {
+class ModalAddProduct extends Component {
   state = {
     modalNewProduct: false,
     idCat: "",
@@ -161,4 +161,4 @@ class AddProduct extends Component {
     );
   }
 }
-export default AddProduct;
+export default ModalAddProduct;

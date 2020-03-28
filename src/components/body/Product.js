@@ -3,6 +3,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import "../../css/body/Product.css";
 
+import ModalDeleteProduct from "./ModalDeleteProduct";
+import ModalUpdateProduct from "./ModalUpdateProduct";
+
 import axios from "axios";
 
 class Product extends Component {
@@ -86,23 +89,12 @@ class Product extends Component {
           </div>
         </div>
 
-        <Modal
-          isOpen={this.state.modalDeleteProduct}
-          toggle={this.toggleModalDeleteProduct}
-        >
-          <ModalHeader toggle={this.toggleModalDeleteProduct}>
-            Confirmation de la suppression
-          </ModalHeader>
-          <ModalBody>Êtes-vous sûr de vouloir supprimer cet élément?</ModalBody>
-          <ModalFooter>
-            <Button color="danger" onClick={this.handleDelete}>
-              Supprimer
-            </Button>
-            <Button color="secondary" onClick={this.toggleModalDeleteProduct}>
-              Annuler
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <ModalDeleteProduct
+          modalDeleteProduct={this.state.modalDeleteProduct}
+          toggleModalDeleteProduct={this.toggleModalDeleteProduct}
+          handleDelete={this.handleDelete}
+        />
+        {/* <ModalUpdateProduct /> */}
       </>
     );
   }

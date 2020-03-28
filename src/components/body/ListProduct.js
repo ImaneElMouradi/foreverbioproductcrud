@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import Product from "./Product";
-import AddProduct from "./AddProduct";
+import ModalAddProduct from "./ModalAddProduct";
 
 import "../../css/body/ListProduct.css";
 
@@ -26,7 +26,7 @@ class ListProduct extends Component {
   render() {
     return (
       <>
-        <AddProduct fetchProducts={this.fetchProducts} />
+        <ModalAddProduct fetchProducts={this.fetchProducts} />
         <div className="list-card row">
           {this.state.products.map(product => (
             <Product
