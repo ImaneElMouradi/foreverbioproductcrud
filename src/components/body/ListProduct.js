@@ -29,7 +29,7 @@ class ListProduct extends Component {
           {this.state.products.map(product => (
             <Product key={product.id} product={product} />
           ))}
-          <h4>
+          <h4 className="add">
             <i className="fas fa-plus"></i> Ajouter un produit
           </h4>
         </div>

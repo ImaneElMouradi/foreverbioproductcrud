@@ -27,17 +27,23 @@ class Product extends Component {
             </p>
           </div>
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">Prix: {prix}</li>
-            <li className="list-group-item">Etat: {etat}</li>
-            <li className="list-group-item">Quantité en stock: {qte}</li>
+            <li className="list-group-item">
+              <b>Prix:</b> {prix} DH
+            </li>
+            <li className="list-group-item">
+              <b>Etat:</b> {etat}
+            </li>
+            <li className="list-group-item">
+              <b>Quantité en stock:</b> {qte}
+            </li>
           </ul>
-          <div className="card-body">
-            <a href="#" className="card-link">
-              Delete
-            </a>
-            <a href="#" className="card-link">
-              Update
-            </a>
+          <div className="card-body m-auto">
+            <button className="delete">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button className="update">
+              <i class="fas fa-pen"></i>
+            </button>
           </div>
         </div>
       </>
