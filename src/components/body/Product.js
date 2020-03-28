@@ -2,11 +2,21 @@ import React, { Component } from "react";
 
 import "../../css/body/Product.css";
 
+import axios from "axios";
+
 class Product extends Component {
+  handleDelete = () => {
+    console.log("delete", this.props.product.id);
+  };
+
+  handleUpdate = id => {
+    console.log("update");
+  };
+
   render() {
     const {
-      nom,
       idCat,
+      nom,
       description,
       source,
       etat,
@@ -36,13 +46,16 @@ class Product extends Component {
             <li className="list-group-item">
               <b>Quantité en stock:</b> {qte}
             </li>
+            <li className="list-group-item">
+              <b>Numéro de catégorie:</b> {idCat}
+            </li>
           </ul>
           <div className="card-body m-auto">
-            <button className="delete">
-              <i class="fas fa-trash-alt"></i>
+            <button className="delete" onClick={this.handleDelete}>
+              <i className="fas fa-trash-alt"></i>
             </button>
-            <button className="update">
-              <i class="fas fa-pen"></i>
+            <button className="update" onClick={this.handleUpdate}>
+              <i className="fas fa-pen"></i>
             </button>
           </div>
         </div>
