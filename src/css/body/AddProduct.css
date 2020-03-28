@@ -1,0 +1,12 @@
+.add {
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+  margin-top: 30px;
+  margin-left: 50px;
+  color: #51d88a;
+}
+
+button:hover {
+  transform: scale(1.2);
+}

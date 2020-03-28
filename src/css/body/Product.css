@@ -1,6 +1,18 @@
 .card {
 }
 
-.add {
-  color: #51d88a;
+.delete,
+.update {
+  margin: 0px 20px 0px 20px;
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+}
+
+.delete {
+  color: #ef5753;
+}
+
+.update {
+  color: #6cb2eb;
 }
