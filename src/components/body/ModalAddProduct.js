@@ -84,10 +84,18 @@ class ModalAddProduct extends Component {
               <FormGroup>
                 <Label>Numéro de la catégorie</Label>
                 <Input
-                  placeholder="Id catégorie..."
+                  type="select"
                   name="idCat"
                   onChange={this.handleOnChange}
-                ></Input>
+                  defaultValue="Choisir un numéro..."
+                >
+                  <option disabled>Choisir un numéro...</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Input>
               </FormGroup>
               <FormGroup>
                 <Label>Nom</Label>
@@ -115,8 +123,13 @@ class ModalAddProduct extends Component {
               </FormGroup>
               <FormGroup>
                 <Label>Etat</Label>
-                <Input type="select" name="etat" onChange={this.handleOnChange}>
-                  {/* <option>Choisir une option</option> */}
+                <Input
+                  type="select"
+                  name="etat"
+                  onChange={this.handleOnChange}
+                  defaultValue="Choisir une option..."
+                >
+                  <option disabled>Choisir une option...</option>
                   <option>Vente</option>
                   <option>Rupture de stock</option>
                   <option>Approvisionnement</option>
@@ -149,7 +162,7 @@ class ModalAddProduct extends Component {
             </ModalBody>
             <ModalFooter>
               <Button color="success" onClick={this.handleAddProduct}>
-                Ajouter Produit
+                Ajouter
               </Button>
               <Button color="secondary" onClick={this.toggleNewProductModal}>
                 Annuler

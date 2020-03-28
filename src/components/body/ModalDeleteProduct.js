@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
+import axios from "axios";
+
 class ModalDeleteProduct extends Component {
+  handleDelete = () => {
+    console.log("delete", this.props.product.id);
+    axios
+      .delete(`http://localhost:9092/product/${this.props.product.id}`)
+      .then(() => {
+        this.toggleModalDeleteProduct();
+        this.props.fetchProducts();
+      });
+  };
+
   render() {
     return (
       <Modal
@@ -13,7 +25,7 @@ class ModalDeleteProduct extends Component {
         </ModalHeader>
         <ModalBody>Êtes-vous sûr de vouloir supprimer cet élément?</ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={this.props.handleDelete}>
+          <Button color="danger" onClick={this.handleDelete}>
             Supprimer
           </Button>
           <Button

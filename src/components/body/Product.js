@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import "../../css/body/Product.css";
 
 import ModalDeleteProduct from "./ModalDeleteProduct";
 import ModalUpdateProduct from "./ModalUpdateProduct";
 
-import axios from "axios";
-
 class Product extends Component {
   state = {
-    modalDeleteProduct: false
+    modalDeleteProduct: false,
+    modalUpdateProduct: false
   };
 
   toggleModalDeleteProduct = () => {
@@ -19,15 +17,10 @@ class Product extends Component {
     }));
   };
 
-  handleDelete = () => {
-    console.log("delete", this.props.product.id);
-    axios.delete(`http://localhost:9092/product/${this.props.product.id}`);
-    this.toggleModalDeleteProduct();
-    this.props.fetchProducts();
-  };
-
-  handleUpdate = id => {
-    console.log("update");
+  toggleModalUpdateProduct = () => {
+    this.setState(prevState => ({
+      modalUpdateProduct: !prevState.modalUpdateProduct
+    }));
   };
 
   checkEtat = () => {
@@ -42,6 +35,7 @@ class Product extends Component {
 
   render() {
     const {
+      id,
       idCat,
       nom,
       description,
@@ -83,18 +77,26 @@ class Product extends Component {
             <button className="delete" onClick={this.toggleModalDeleteProduct}>
               <i className="fas fa-trash-alt"></i>
             </button>
-            <button className="update" onClick={this.handleUpdate}>
+            <button className="update" onClick={this.toggleModalUpdateProduct}>
               <i className="fas fa-pen"></i>
             </button>
           </div>
         </div>
 
         <ModalDeleteProduct
+          id={id}
           modalDeleteProduct={this.state.modalDeleteProduct}
           toggleModalDeleteProduct={this.toggleModalDeleteProduct}
-          handleDelete={this.handleDelete}
+          fetchProducts={this.props.fetchProducts}
         />
-        {/* <ModalUpdateProduct /> */}
+
+        <ModalUpdateProduct
+          id={id}
+          modalUpdateProduct={this.state.modalUpdateProduct}
+          toggleModalUpdateProduct={this.toggleModalUpdateProduct}
+          handleOnChange={this.handleOnChange}
+          fetchProducts={this.props.fetchProducts}
+        />
       </>
     );
   }
