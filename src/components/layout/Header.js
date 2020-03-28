@@ -3,6 +3,21 @@ import React, { Component } from "react";
 import "../../css/layout/Header.css";
 
 class Header extends Component {
+  state = {
+    search: ""
+  };
+
+  handleChange = e => {
+    this.setState({
+      search: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    console.log("log");
+    e.preventDefault();
+  };
+
   render() {
     return (
       <>
@@ -10,7 +25,19 @@ class Header extends Component {
           <a className="navbar-brand" href="#">
             Forever<em className="text-success">BIO </em>: Product Management
           </a>
-          <button className="btn btn-success ml-auto mr-1">
+          <div class="search-container ml-auto mr-2">
+            <input
+              type="text"
+              placeholder="Search.."
+              name="search"
+              onChange={this.handleChange}
+            />
+            <button type="submit" onClick={this.handleSubmit}>
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+
+          <button className="btn btn-success mr-1">
             <i className="fas fa-user-circle"></i>
           </button>
           <button className="btn btn-success  mr-1">
