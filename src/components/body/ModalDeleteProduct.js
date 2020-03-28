@@ -5,37 +5,41 @@ import axios from "axios";
 
 class ModalDeleteProduct extends Component {
   handleDelete = () => {
-    console.log("delete", this.props.product.id);
-    axios
-      .delete(`http://localhost:9092/product/${this.props.product.id}`)
-      .then(() => {
-        this.toggleModalDeleteProduct();
-        this.props.fetchProducts();
-      });
+    console.log("delete", this.props.id);
+    axios.delete(`http://localhost:9092/product/${this.props.id}`).then(() => {
+      this.props.toggleModalDeleteProduct();
+      this.props.fetchProducts();
+    });
   };
 
   render() {
     return (
-      <Modal
-        isOpen={this.props.modalDeleteProduct}
-        toggle={this.props.toggleModalDeleteProduct}
-      >
-        <ModalHeader toggle={this.props.toggleModalDeleteProduct}>
-          Confirmation de la suppression
-        </ModalHeader>
-        <ModalBody>Êtes-vous sûr de vouloir supprimer cet élément?</ModalBody>
-        <ModalFooter>
-          <Button color="danger" onClick={this.handleDelete}>
-            Supprimer
-          </Button>
-          <Button
-            color="secondary"
-            onClick={this.props.toggleModalDeleteProduct}
+      <>
+        {this.props.modalDeleteProduct && (
+          <Modal
+            isOpen={this.props.modalDeleteProduct}
+            toggle={this.props.toggleModalDeleteProduct}
           >
-            Annuler
-          </Button>
-        </ModalFooter>
-      </Modal>
+            <ModalHeader toggle={this.props.toggleModalDeleteProduct}>
+              Confirmation de la suppression
+            </ModalHeader>
+            <ModalBody>
+              Êtes-vous sûr de vouloir supprimer cet élément?
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" onClick={this.handleDelete}>
+                Supprimer
+              </Button>
+              <Button
+                color="secondary"
+                onClick={this.props.toggleModalDeleteProduct}
+              >
+                Annuler
+              </Button>
+            </ModalFooter>
+          </Modal>
+        )}
+      </>
     );
   }
 }

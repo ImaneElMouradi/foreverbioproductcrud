@@ -5,3 +5,19 @@
 h4 {
   margin: 20px;
 }
+
+.search {
+  text-align: end;
+  margin-right: 100px;
+  margin-top: 15px;
+  border-radius: 8px;
+  /* background-color: transparent; */
+}
+
+.search > button {
+  border-radius: 3px;
+  padding: 5px 15px 5px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
