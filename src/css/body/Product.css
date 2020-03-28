@@ -16,3 +16,14 @@
 .update {
   color: #6cb2eb;
 }
+
+.vente {
+  color: green;
+}
+.rupture {
+  color: red;
+}
+
+.appro {
+  color: orange;
+}

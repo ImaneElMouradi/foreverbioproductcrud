@@ -13,6 +13,16 @@ class Product extends Component {
     console.log("update");
   };
 
+  checkEtat = () => {
+    if (this.props.product.etat === "Vente") {
+      return "vente";
+    } else if (this.props.product.etat === "Rupture de stock") {
+      return "rupture";
+    } else if (this.props.product.etat === "Approvisionnement") {
+      return "appro";
+    }
+  };
+
   render() {
     const {
       idCat,
@@ -41,7 +51,9 @@ class Product extends Component {
               <b>Prix:</b> {prix} DH
             </li>
             <li className="list-group-item">
-              <b>Etat:</b> {etat}
+              <b>
+                Etat: <span className={this.checkEtat()}>{etat}</span>
+              </b>
             </li>
             <li className="list-group-item">
               <b>Quantité en stock:</b> {qte}
