@@ -17,6 +17,7 @@ import "../../css/body/AddProduct.css";
 class ModalAddProduct extends Component {
   state = {
     modalNewProduct: false,
+    nomCat: "",
     idCat: "",
     nom: "",
     description: "",
@@ -38,6 +39,8 @@ class ModalAddProduct extends Component {
   };
 
   handleAddProduct = () => {
+    this.chooseCategory(this.state.nomCat);
+
     const {
       idCat,
       nom,
@@ -66,6 +69,20 @@ class ModalAddProduct extends Component {
       });
   };
 
+  chooseCategory = name => {
+    if (name === "Visage") {
+      this.setState({ idCat: 1 });
+    } else if (name === "Cheveux") {
+      this.setState({ idCat: 2 });
+    } else if (name === "Huile") {
+      this.setState({ idCat: 3 });
+    } else if (name === "Peau") {
+      this.setState({ idCat: 4 });
+    } else if (name === "Aliment") {
+      this.setState({ idCat: 5 });
+    }
+  };
+
   render() {
     return (
       <>
@@ -85,16 +102,16 @@ class ModalAddProduct extends Component {
                 <Label>Numéro de la catégorie</Label>
                 <Input
                   type="select"
-                  name="idCat"
+                  name="nomCat"
                   onChange={this.handleOnChange}
-                  defaultValue="Choisir un numéro..."
+                  defaultValue="Choisir une catégorie..."
                 >
-                  <option disabled>Choisir un numéro...</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option disabled>Choisir une catégorie...</option>
+                  <option>Visage</option>
+                  <option>Cheveux</option>
+                  <option>Huile</option>
+                  <option>Peau</option>
+                  <option>Aliment</option>
                 </Input>
               </FormGroup>
               <FormGroup>
@@ -127,9 +144,9 @@ class ModalAddProduct extends Component {
                   type="select"
                   name="etat"
                   onChange={this.handleOnChange}
-                  defaultValue="Choisir une option..."
+                  defaultValue="Choisir un état..."
                 >
-                  <option disabled>Choisir une option...</option>
+                  <option disabled>Choisir un état...</option>
                   <option>Vente</option>
                   <option>Rupture de stock</option>
                   <option>Approvisionnement</option>
