@@ -13,7 +13,7 @@ class Header extends Component {
       <>
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
           <a className="navbar-brand" href="#">
-            Forever<em className="text-success">BIO </em>: Product Management
+            Forever<em className="text-success">BIO </em>: Gestion de Produits
           </a>
 
           <button className="btn btn-success ml-auto mr-1">

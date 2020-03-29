@@ -46,6 +46,7 @@ class ListProduct extends Component {
             type="text"
             placeholder="Search.."
             name="search"
+            autoComplete="off"
             onChange={this.onChangeSearchText}
           />
           <button type="submit" onClick={this.onSubmitSearchText}>
