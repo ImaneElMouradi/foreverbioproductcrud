@@ -8,7 +8,8 @@ import ModalUpdateProduct from "./ModalUpdateProduct";
 class Product extends Component {
   state = {
     modalDeleteProduct: false,
-    modalUpdateProduct: false
+    modalUpdateProduct: false,
+    nameCat: ""
   };
 
   toggleModalDeleteProduct = () => {
@@ -30,6 +31,25 @@ class Product extends Component {
       return "rupture";
     } else if (this.props.product.etat === "Approvisionnement") {
       return "appro";
+    }
+  };
+
+  componentDidMount = () => {
+    this.checkCategory();
+  };
+
+  checkCategory = () => {
+    const { idCat } = this.props.product;
+    if (idCat === 1) {
+      return this.setState({ nameCat: "Visage" });
+    } else if (idCat === 2) {
+      return this.setState({ nameCat: "Cheveux" });
+    } else if (idCat === 3) {
+      return this.setState({ nameCat: "Huile" });
+    } else if (idCat === 4) {
+      return this.setState({ nameCat: "Peau" });
+    } else if (idCat === 5) {
+      return this.setState({ nameCat: "Aliment" });
     }
   };
 
@@ -70,7 +90,7 @@ class Product extends Component {
               <b>Quantité en stock:</b> {qte}
             </li>
             <li className="list-group-item">
-              <b>Numéro de catégorie:</b> {idCat}
+              <b>Catégorie:</b> {this.state.nameCat}
             </li>
           </ul>
           <div className="card-body m-auto">
