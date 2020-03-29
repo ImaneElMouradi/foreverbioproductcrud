@@ -25,7 +25,13 @@ class ModalAddProduct extends Component {
     etat: "",
     prix: "",
     qte: "",
-    url: ""
+    url:
+      "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
+    nomError: "",
+    descError: "",
+    srcError: "",
+    prixError: "",
+    qteError: ""
   };
 
   handleOnChange = e => {
@@ -38,8 +44,11 @@ class ModalAddProduct extends Component {
     }));
   };
 
-  handleAddProduct = () => {
+  handleAddProduct = e => {
     this.chooseCategory(this.state.nomCat);
+
+    e.preventDefault();
+    const isValid = this.validate();
 
     const {
       idCat,
@@ -51,22 +60,67 @@ class ModalAddProduct extends Component {
       qte,
       url
     } = this.state;
-    axios
-      .post("http://localhost:9092/product", {
-        idCat,
-        nom,
-        description,
-        source,
-        etat,
-        prix,
-        qte,
-        url
-      })
-      .then(() => {
-        console.log("produit ajouté");
-        this.toggleNewProductModal();
-        this.props.fetchProducts();
-      });
+    if (isValid) {
+      axios
+        .post("http://localhost:9092/product", {
+          idCat,
+          nom,
+          description,
+          source,
+          etat,
+          prix,
+          qte,
+          url
+        })
+        .then(() => {
+          console.log("produit ajouté");
+          this.toggleNewProductModal();
+          this.props.fetchProducts();
+        });
+      this.clearFormError();
+    }
+  };
+
+  clearFormError = () => {
+    this.setState({
+      nomError: "",
+      descError: "",
+      srcError: "",
+      prixError: "",
+      qteError: ""
+    });
+  };
+
+  validate = () => {
+    let nomError = "";
+    let descError = "";
+    // let srcError = "";
+    let prixError = "";
+    let qteError = "";
+
+    if (!this.state.nom.match(/^[A-Za-z\s]+$/)) {
+      nomError = "Le nom doit contenir des lettres";
+    }
+
+    if (!this.state.description) {
+      descError = "La description du produit est obligatoire";
+    }
+    // if (!this.state.srcError) {
+    //   srcError = "Le nom du produit est obligatoire";
+    // }
+
+    if (!this.state.prix.match(/\d/)) {
+      prixError = "Veuillez entrer un nombre dans le prix";
+    }
+    if (!this.state.qte.match(/^[0-9]+$/)) {
+      qteError = "Veuillez entrer un nombre dans la quantité";
+    }
+
+    if (nomError || descError || prixError || qteError) {
+      this.setState({ nomError, descError, prixError, qteError });
+      return false;
+    }
+    return true;
   };
 
   chooseCategory = name => {
@@ -99,6 +153,18 @@ class ModalAddProduct extends Component {
             </ModalHeader>
             <ModalBody>
               <FormGroup>
+                <img
+                  src={this.state.url}
+                  alt=""
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    display: "block",
+                    margin: "auto",
+                    marginBottom: "3px",
+                    borderRadius: "8px"
+                  }}
+                />
                 <Label>Nom de la catégorie</Label>
                 <Input
                   type="select"
@@ -120,7 +186,11 @@ class ModalAddProduct extends Component {
                   placeholder="Nom..."
                   name="nom"
                   onChange={this.handleOnChange}
+                  autoComplete="off"
                 ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.nomError}
+                </p>
               </FormGroup>
               <FormGroup>
                 <Label>Description</Label>
@@ -129,6 +199,9 @@ class ModalAddProduct extends Component {
                   name="description"
                   onChange={this.handleOnChange}
                 ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.descError}
+                </p>
               </FormGroup>
               <FormGroup>
                 <Label>Provenance et source</Label>
@@ -137,6 +210,9 @@ class ModalAddProduct extends Component {
                   name="source"
                   onChange={this.handleOnChange}
                 ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.srcError}
+                </p>
               </FormGroup>
               <FormGroup>
                 <Label>Etat</Label>
@@ -159,6 +235,9 @@ class ModalAddProduct extends Component {
                   name="prix"
                   onChange={this.handleOnChange}
                 ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.prixError}
+                </p>
               </FormGroup>
               <FormGroup>
                 <Label>Quantité</Label>
@@ -167,9 +246,13 @@ class ModalAddProduct extends Component {
                   name="qte"
                   onChange={this.handleOnChange}
                 ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.qteError}
+                </p>
               </FormGroup>
               <FormGroup>
                 <Label>L'url de l'image</Label>
+
                 <Input
                   placeholder="Url..."
                   name="url"
@@ -181,7 +264,13 @@ class ModalAddProduct extends Component {
               <Button color="success" onClick={this.handleAddProduct}>
                 Ajouter
               </Button>
-              <Button color="secondary" onClick={this.toggleNewProductModal}>
+              <Button
+                color="secondary"
+                onClick={() => {
+                  this.toggleNewProductModal();
+                  this.clearFormError();
+                }}
+              >
                 Annuler
               </Button>
             </ModalFooter>

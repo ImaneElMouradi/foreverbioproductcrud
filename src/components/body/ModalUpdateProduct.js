@@ -148,6 +148,18 @@ class UpdateProduct extends Component {
         </ModalHeader>
         <ModalBody>
           <FormGroup>
+            <img
+              src={url}
+              alt=""
+              style={{
+                width: "100px",
+                height: "100px",
+                display: "block",
+                margin: "auto",
+                marginBottom: "3px",
+                borderRadius: "8px"
+              }}
+            />
             <Label>Nom de la catégorie</Label>
             <Input
               type="select"
