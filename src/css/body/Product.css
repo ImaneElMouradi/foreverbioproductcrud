@@ -27,3 +27,15 @@
 .appro {
   color: orange;
 }
+
+.product-image {
+  height: 300px;
+}
+
+.product-desc {
+  height: 200px;
+}
+
+.product-src {
+  height: 30px;
+}

@@ -49,11 +49,11 @@ class Product extends Component {
     return (
       <>
         <div className="card col-mg-3" style={{ width: "18rem" }}>
-          <img src={url} className="card-img-top" alt="..." />
+          <img src={url} className="card-img-top product-image" alt="..." />
           <div className="card-body">
             <h5 className="card-title">{nom}</h5>
-            <p className="card-text">{description}</p>
-            <p>
+            <p className="card-text product-desc">{description}</p>
+            <p className="product-src">
               <i>{source}</i>
             </p>
           </div>
