@@ -14,6 +14,7 @@ import axios from "axios";
 
 class UpdateProduct extends Component {
   state = {
+    nomCat: "",
     idCat: "",
     nom: "",
     description: "",
@@ -46,18 +47,56 @@ class UpdateProduct extends Component {
         qte,
         url
       });
+      this.checkCategory();
     });
+  };
+
+  chooseCategory = name => {
+    if (name === "Visage") {
+      this.setState({ idCat: 1 });
+    } else if (name === "Cheveux") {
+      this.setState({ idCat: 2 });
+    } else if (name === "Huile") {
+      this.setState({ idCat: 3 });
+    } else if (name === "Peau") {
+      this.setState({ idCat: 4 });
+    } else if (name === "Aliment") {
+      this.setState({ idCat: 5 });
+    }
+  };
+
+  checkCategory = () => {
+    const { idCat } = this.state;
+    if (idCat === 1) {
+      this.setState({ nomCat: "Visage" });
+    } else if (idCat === 2) {
+      this.setState({ nomCat: "Cheveux" });
+    } else if (idCat === 3) {
+      this.setState({ nomCat: "Huile" });
+    } else if (idCat === 4) {
+      this.setState({ nomCat: "Peau" });
+    } else if (idCat === 5) {
+      this.setState({ nomCat: "Aliment" });
+    }
   };
 
   componentDidMount = () => {
     this.fetchProductById();
+    this.checkCategory();
   };
 
   handleOnChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleUpdate = () => {
+  fetchProductsUpdated = () => {
+    this.props.fetchProducts();
+    this.checkCategory();
+  };
+
+  handleUpdate = async () => {
+    await this.chooseCategory(this.state.nomCat);
+
     const {
       idCat,
       nom,
@@ -68,7 +107,7 @@ class UpdateProduct extends Component {
       qte,
       url
     } = this.state;
-    console.log("update", this.props.id);
+    console.log("test", idCat);
     axios
       .put(`http://localhost:9092/product/${this.props.id}`, {
         idCat,
@@ -80,14 +119,16 @@ class UpdateProduct extends Component {
         qte,
         url
       })
-      .then(() => {
+      .then(async () => {
+        console.log(" produit modifié ", this.props.id);
         this.props.toggleModalUpdateProduct();
-        this.props.fetchProducts();
+        this.fetchProductsUpdated();
       });
   };
 
   render() {
     const {
+      nomCat,
       idCat,
       nom,
       description,
@@ -107,20 +148,20 @@ class UpdateProduct extends Component {
         </ModalHeader>
         <ModalBody>
           <FormGroup>
-            <Label>Numéro de la catégorie</Label>
+            <Label>Nom de la catégorie</Label>
             <Input
               type="select"
-              name="idCat"
+              name="nomCat"
               onChange={this.handleOnChange}
-              value={idCat}
-              defaultValue="Choisir un numéro..."
+              value={nomCat}
+              defaultValue="Choisir une catégorie..."
             >
-              <option disabled>Choisir un numéro...</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option disabled>Choisir une catégorie...</option>
+              <option>Visage</option>
+              <option>Cheveux</option>
+              <option>Huile</option>
+              <option>Peau</option>
+              <option>Aliment</option>
             </Input>
           </FormGroup>
           <FormGroup>
@@ -157,9 +198,9 @@ class UpdateProduct extends Component {
               name="etat"
               onChange={this.handleOnChange}
               value={etat}
-              defaultValue="Choisir une option..."
+              defaultValue="Choisir un état..."
             >
-              <option disabled>Choisir une option...</option>
+              <option disabled>Choisir un état...</option>
               <option>Vente</option>
               <option>Rupture de stock</option>
               <option>Approvisionnement</option>

@@ -99,7 +99,7 @@ class ModalAddProduct extends Component {
             </ModalHeader>
             <ModalBody>
               <FormGroup>
-                <Label>Numéro de la catégorie</Label>
+                <Label>Nom de la catégorie</Label>
                 <Input
                   type="select"
                   name="nomCat"

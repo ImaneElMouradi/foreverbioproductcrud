@@ -9,7 +9,7 @@ class Product extends Component {
   state = {
     modalDeleteProduct: false,
     modalUpdateProduct: false,
-    nameCat: ""
+    nomCat: ""
   };
 
   toggleModalDeleteProduct = () => {
@@ -41,15 +41,15 @@ class Product extends Component {
   checkCategory = () => {
     const { idCat } = this.props.product;
     if (idCat === 1) {
-      return this.setState({ nameCat: "Visage" });
+      return this.setState({ nomCat: "Visage" });
     } else if (idCat === 2) {
-      return this.setState({ nameCat: "Cheveux" });
+      return this.setState({ nomCat: "Cheveux" });
     } else if (idCat === 3) {
-      return this.setState({ nameCat: "Huile" });
+      return this.setState({ nomCat: "Huile" });
     } else if (idCat === 4) {
-      return this.setState({ nameCat: "Peau" });
+      return this.setState({ nomCat: "Peau" });
     } else if (idCat === 5) {
-      return this.setState({ nameCat: "Aliment" });
+      return this.setState({ nomCat: "Aliment" });
     }
   };
 
@@ -90,7 +90,7 @@ class Product extends Component {
               <b>Quantité en stock:</b> {qte}
             </li>
             <li className="list-group-item">
-              <b>Catégorie:</b> {this.state.nameCat}
+              <b>Catégorie:</b> {this.state.nomCat}
             </li>
           </ul>
           <div className="card-body m-auto">
