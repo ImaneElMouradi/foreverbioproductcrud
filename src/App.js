@@ -1,30 +1,37 @@
 import React, { Component } from "react";
 
-import axios from "axios";
 
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import ProductPage from "./Pages/ProductPage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-import ListProduct from "./components/body/ListProduct";
 
 import "./css/App.css";
+import UserPage from "./Pages/UserPage";
 
 class App extends Component {
-  state = {
-    search: "",
-    dataSearch: {}
-  };
+
 
   render() {
     return (
-      <>
-        <Header
-          onChangeSearchText={this.onChangeSearchText}
-          onSubmitSearchText={this.onSubmitSearchText}
-        />
-        <ListProduct dataSearch={this.dataSearch} />
-        <Footer />
-      </>
+      <div>
+        <Router>
+          <Switch>
+            <Route path="/products">
+              <ProductPage />
+            </Route>
+
+            <Route path="/users">
+              <UserPage />
+            </Route>
+
+
+          </Switch>
+        </Router></div>
     );
   }
 }

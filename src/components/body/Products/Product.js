@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "../../css/body/Product.css";
+import "../../../css/body/Product.css";
 
 import ModalDeleteProduct from "./ModalDeleteProduct";
 import ModalUpdateProduct from "./ModalUpdateProduct";
@@ -68,7 +68,7 @@ class Product extends Component {
 
     return (
       <>
-        <div className="card col-mg-3" style={{ width: "18rem" }}>
+        <div className="card col-sm-12 col-md-4 col-lg-3" style={{ width: "18rem" }}>
           <img src={url} className="card-img-top product-image" alt="..." />
           <div className="card-body">
             <h5 className="card-title">{nom}</h5>

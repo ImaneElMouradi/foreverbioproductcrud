@@ -43,5 +43,4 @@ class ModalDeleteProduct extends Component {
     );
   }
 }
-
 export default ModalDeleteProduct;
