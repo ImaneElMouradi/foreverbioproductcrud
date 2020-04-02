@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
-import ListProduct from "../components/body/Products/ListProduct";
-import ModalAddProduct from "../components/body/Users/ModalAddUser"
+import ListUser from "../components/body/Users/ListUser";
+
 
 import "../css/App.css";
 
@@ -22,10 +22,7 @@ class UserPage extends Component {
           onChangeSearchText={this.onChangeSearchText}
           onSubmitSearchText={this.onSubmitSearchText}
         />
-        <h1> User page </h1>
-
-        <ModalAddProduct fetchProducts={this.fetchProducts} />
-        
+        <ListUser dataSearch={this.dataSearch} />
         <Footer />
       </>
     );

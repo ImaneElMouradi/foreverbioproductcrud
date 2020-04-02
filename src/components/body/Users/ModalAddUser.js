@@ -8,74 +8,81 @@ import {
   FormGroup,
   Label,
   Input
-} from "reactstrap";
 
-import axios from "axios";
+} from "reactstrap";
 
 import "../../../css/body/AddProduct.css";
 
-class ModalAddProduct extends Component {
+import axios from "axios";
+
+
+class ModalAddUser extends Component {
   state = {
-    modalNewProduct: false,
-    nomCat: "",
-    idCat: "",
-    nom: "",
-    description: "",
-    source: "",
-    etat: "",
-    prix: "",
-    qte: "",
+    modalNewUser: false,
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    password: "",
+    role: "USER",
+    email: "",
     url:
       "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
-    nomError: "",
-    descError: "",
-    srcError: "",
-    prixError: "",
-    qteError: ""
+    firstNameError: "",
+    lastNameError: "",
+    birthDateError: "",
+    passwordError: "",
+    emailError: ""
   };
 
   handleOnChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  toggleNewProductModal = () => {
+  toggleNewUserModal = () => {
     this.setState(prevState => ({
-      modalNewProduct: !prevState.modalNewProduct
+      modalNewUser: !prevState.modalNewUser
     }));
   };
 
-  handleAddProduct = e => {
-    this.chooseCategory(this.state.nomCat);
 
+  //TODO: Adapt this function
+
+  handleAddUser = e => {
+    this.clearFormError();
     e.preventDefault();
     const isValid = this.validate();
 
     const {
-      idCat,
-      nom,
-      description,
-      source,
-      etat,
-      prix,
-      qte,
+        firstName,
+        lastName,
+        birthDate,
+        password,
+        role,
+        email,
       url
     } = this.state;
     if (isValid) {
       axios
-        .post("http://localhost:9092/product", {
-          idCat,
-          nom,
-          description,
-          source,
-          etat,
-          prix,
-          qte,
-          url
+        .post("http://localhost:9092/user", {
+            firstName,
+            lastName,
+            birthDate,
+            password,
+            role,
+            email,
+            url
         })
         .then(() => {
-          console.log("produit ajouté");
-          this.toggleNewProductModal();
-          this.props.fetchProducts();
+        console.log({ firstName,
+            lastName,
+            birthDate,
+            password,
+            role,
+            email,
+            url});
+          console.log("utilisateur ajouté");
+          this.toggleNewUserModal();
+          this.props.fetchUsers();
         });
       this.clearFormError();
     }
@@ -83,192 +90,181 @@ class ModalAddProduct extends Component {
 
   clearFormError = () => {
     this.setState({
-      nomError: "",
-      descError: "",
-      srcError: "",
-      prixError: "",
-      qteError: ""
+        firstNameError: "",
+        lastNameError: "",
+        birthDateError: "",
+        passwordError: "",
+        emailError: ""
     });
   };
 
+
+
   validate = () => {
-    let nomError = "";
-    let descError = "";
-    // let srcError = "";
-    let prixError = "";
-    let qteError = "";
+    let firstNameError = "";
+    let lastNameError = "";
+    // let birthDateError = "";
+    let passwordError = "";
+    let emailError = "";
 
-    if (!this.state.nom.match(/^[A-Za-z\s]+$/)) {
-      nomError = "Le nom doit contenir des lettres";
+    if (!this.state.firstName.match(/^[A-Za-z\s]+$/)) {
+        firstNameError = "Votre prénom doit contenir  que des lettres.";
     }
 
-    if (!this.state.description) {
-      descError = "La description du produit est obligatoire";
-    }
-    // if (!this.state.srcError) {
-    //   srcError = "Le nom du produit est obligatoire";
-    // }
-
-    if (!this.state.prix.match(/\d/)) {
-      prixError = "Veuillez entrer un nombre dans le prix";
-    }
-    if (!this.state.qte.match(/^[0-9]+$/)) {
-      qteError = "Veuillez entrer un nombre dans la quantité";
+    if (!this.state.lastName.match(/^[A-Za-z\s]+$/)) {
+        lastNameError = "Votre nom doit contenir que des lettres.";
     }
 
-    if (nomError || descError || prixError || qteError) {
-      this.setState({ nomError, descError, prixError, qteError });
+    if (!this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+        emailError = "Votre email est invalide.";
+    }
+
+
+    if (this.state.password.length < 8) {
+        passwordError = "Votre mot de passe doit contenir au moins 8 caractères.";
+    }
+
+    if (firstNameError || lastNameError || passwordError || emailError) {
+      this.setState({ firstNameError, lastNameError, passwordError, emailError });
       return false;
     }
     return true;
   };
 
-  chooseCategory = name => {
-    if (name === "Visage") {
-      this.setState({ idCat: 1 });
-    } else if (name === "Cheveux") {
-      this.setState({ idCat: 2 });
-    } else if (name === "Huile") {
-      this.setState({ idCat: 3 });
-    } else if (name === "Peau") {
-      this.setState({ idCat: 4 });
-    } else if (name === "Aliment") {
-      this.setState({ idCat: 5 });
-    }
-  };
-
   render() {
     return (
       <>
-        <button className="add" onClick={this.toggleNewProductModal}>
-          <i className="fas fa-plus"></i> Ajouter un produit
+        <button className="add" onClick={this.toggleNewUserModal}>
+          <i className="fas fa-plus"></i> Ajouter un utilisateur
         </button>
         <div>
           <Modal
-            isOpen={this.state.modalNewProduct}
-            toggle={this.toggleNewProductModal}
+            isOpen={this.state.modalNewUser}
+            toggle={this.toggleNewUserModal}
           >
-            <ModalHeader toggle={this.toggleNewProductModal}>
-              Ajouter un nouveau Produit
+            <ModalHeader toggle={this.toggleNewUserModal}>
+              Ajouter un nouveau utilisateur
             </ModalHeader>
             <ModalBody>
+            
               <FormGroup>
                 <img
                   src={this.state.url}
                   alt=""
                   style={{
-                    width: "100px",
-                    height: "100px",
+                    width: "120px",
+                    height: "120px",
                     display: "block",
                     margin: "auto",
                     marginBottom: "3px",
-                    borderRadius: "8px"
+                    borderRadius: "50%"
                   }}
                 />
-                <Label>Nom de la catégorie</Label>
-                <Input
-                  type="select"
-                  name="nomCat"
-                  onChange={this.handleOnChange}
-                  defaultValue="Choisir une catégorie..."
-                >
-                  <option disabled>Choisir une catégorie...</option>
-                  <option>Visage</option>
-                  <option>Cheveux</option>
-                  <option>Huile</option>
-                  <option>Peau</option>
-                  <option>Aliment</option>
-                </Input>
               </FormGroup>
               <FormGroup>
-                <Label>Nom</Label>
-                <Input
-                  placeholder="Nom..."
-                  name="nom"
-                  onChange={this.handleOnChange}
-                  autoComplete="off"
-                ></Input>
-                <p style={{ fontSize: 12, color: "red" }}>
-                  {this.state.nomError}
-                </p>
-              </FormGroup>
-              <FormGroup>
-                <Label>Description</Label>
-                <Input
-                  placeholder="Description..."
-                  name="description"
-                  onChange={this.handleOnChange}
-                ></Input>
-                <p style={{ fontSize: 12, color: "red" }}>
-                  {this.state.descError}
-                </p>
-              </FormGroup>
-              <FormGroup>
-                <Label>Provenance et source</Label>
-                <Input
-                  placeholder="Source..."
-                  name="source"
-                  onChange={this.handleOnChange}
-                ></Input>
-                <p style={{ fontSize: 12, color: "red" }}>
-                  {this.state.srcError}
-                </p>
-              </FormGroup>
-              <FormGroup>
-                <Label>Etat</Label>
-                <Input
-                  type="select"
-                  name="etat"
-                  onChange={this.handleOnChange}
-                  defaultValue="Choisir un état..."
-                >
-                  <option disabled>Choisir un état...</option>
-                  <option>Vente</option>
-                  <option>Rupture de stock</option>
-                  <option>Approvisionnement</option>
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Label>Prix en DH</Label>
-                <Input
-                  placeholder="Prix..."
-                  name="prix"
-                  onChange={this.handleOnChange}
-                ></Input>
-                <p style={{ fontSize: 12, color: "red" }}>
-                  {this.state.prixError}
-                </p>
-              </FormGroup>
-              <FormGroup>
-                <Label>Quantité</Label>
-                <Input
-                  placeholder="Quantité..."
-                  name="qte"
-                  onChange={this.handleOnChange}
-                ></Input>
-                <p style={{ fontSize: 12, color: "red" }}>
-                  {this.state.qteError}
-                </p>
-              </FormGroup>
-              <FormGroup>
-                <Label>L'url de l'image</Label>
-
+                <Label>Photo de profil URL</Label>
                 <Input
                   placeholder="Url..."
                   name="url"
                   onChange={this.handleOnChange}
                 ></Input>
               </FormGroup>
+              <FormGroup>
+                <Label>Nom</Label>
+                <Input
+                  placeholder="Nom..."
+                  name="lastName"
+                  onChange={this.handleOnChange}
+                  autoComplete="off"
+                ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.lastNameError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label>Prénom</Label>
+                <Input
+                  placeholder="Prénom..."
+                  name="firstName"
+                  autoComplete="off"
+                  onChange={this.handleOnChange}
+                ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.firstNameError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label for="birthDate">Date de naissance</Label>
+                <Input
+                type="date"
+                name="birthDate"
+                id="birthDate"
+                placeholder="Date de naissance..."
+                onChange={this.handleOnChange}
+                />
+            </FormGroup>
+              <FormGroup>
+                <Label>Email</Label>
+                <Input
+                  placeholder="Email..."
+                  type="email"
+                  name="email"
+                  autoComplete="off"
+                  onChange={this.handleOnChange}
+                ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.emailError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label>Mot de passe</Label>
+                <Input
+                  placeholder="Mot de passe..."
+                  name="password"
+                  type="password"
+                  onChange={this.handleOnChange}
+                ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.passwordError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label>Confirmer mot de passe</Label>
+                <Input
+                  placeholder="Confirmer mot de passe..."
+                  name="password"
+                  type="password"
+                  onChange={this.handleOnChange}
+                ></Input>
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.passwordError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label>Role</Label>
+                <Input
+                  type="select"
+                  name="role"
+                  onChange={this.handleOnChange}
+                  defaultValue="Choisir un role..."
+                >
+                  <option disabled>Choisir un role...</option>
+                  <option>Utilisateur</option>
+                  <option>Administrateur</option>
+                </Input>
+              </FormGroup>
+              
+              
             </ModalBody>
             <ModalFooter>
-              <Button color="success" onClick={this.handleAddProduct}>
+              <Button color="success" onClick={this.handleAddUser}>
                 Ajouter
               </Button>
               <Button
                 color="secondary"
                 onClick={() => {
-                  this.toggleNewProductModal();
                   this.clearFormError();
+                  this.toggleNewUserModal();
                 }}
               >
                 Annuler
@@ -280,4 +276,4 @@ class ModalAddProduct extends Component {
     );
   }
 }
-export default ModalAddProduct;
+export default ModalAddUser;
