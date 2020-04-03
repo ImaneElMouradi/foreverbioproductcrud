@@ -12,7 +12,7 @@ import {
 
 import axios from "axios";
 
-import "../../css/body/AddProduct.css";
+import "../../../css/body/AddProduct.css";
 
 class ModalAddProduct extends Component {
   state = {
