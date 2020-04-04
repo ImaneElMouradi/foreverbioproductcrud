@@ -7,7 +7,8 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
+  FormText
 } from "reactstrap";
 
 import axios from "axios";
@@ -31,7 +32,9 @@ class ModalAddProduct extends Component {
     descError: "",
     srcError: "",
     prixError: "",
-    qteError: ""
+    qteError: "",
+    selectedFile: null,
+    selectedFileBinary: "",
   };
 
   handleOnChange = e => {
@@ -44,24 +47,71 @@ class ModalAddProduct extends Component {
     }));
   };
 
+  fileSelectedHandler = event => {
+
+    this.getBase64(event.target.files[0]).then(data => {
+     this.setState({
+      selectedFileBinary : data,
+     })
+     console.log(this.state.selectedFileBinary);
+    });
+    this.setState({
+      selectedFile: event.target.files[0]
+
+    })
+    
+  }
+
+  getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  fileUploadHandler = async ()  =>{
+    console.log( this.state.selectedFile);
+    return axios.post(
+      'https://api.imgur.com/3/image', {
+        image:  "'"+ this.state.selectedFileBinary.split(",")[1]+ "'",
+       
+        
+      }, {
+        headers: {
+          "Authorization": "Client-ID b22b3f6d28510a1" ,
+        }
+      }
+    )
+  
+}
+
   handleAddProduct = e => {
     this.chooseCategory(this.state.nomCat);
 
     e.preventDefault();
     const isValid = this.validate();
 
-    const {
-      idCat,
-      nom,
-      description,
-      source,
-      etat,
-      prix,
-      qte,
-      url
-    } = this.state;
+    
     if (isValid) {
-      axios
+
+      this.fileUploadHandler().then( result => {
+        this.setState({
+          url: result.data.data.link,
+        });
+
+        const {
+          idCat,
+          nom,
+          description,
+          source,
+          etat,
+          prix,
+          qte,
+          url
+        } = this.state;
+        axios
         .post("http://localhost:9092/product", {
           idCat,
           nom,
@@ -77,6 +127,9 @@ class ModalAddProduct extends Component {
           this.toggleNewProductModal();
           this.props.fetchProducts();
         });
+
+      })
+      
       this.clearFormError();
     }
   };
@@ -154,17 +207,26 @@ class ModalAddProduct extends Component {
             <ModalBody>
               <FormGroup>
                 <img
-                  src={this.state.url}
+                  src={this.state.selectedFile == null ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg" : this.state.selectedFileBinary}
                   alt=""
                   style={{
                     width: "100px",
                     height: "100px",
                     display: "block",
                     margin: "auto",
+                    objectFit: "cover",
                     marginBottom: "3px",
                     borderRadius: "8px"
                   }}
                 />
+                <FormGroup>
+        <Label for="exampleFile">Image</Label>
+        <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+        />
+        <FormText color="muted">
+          Veuillez choisir une image de profil.
+        </FormText>
+      </FormGroup>
                 <Label>Nom de la catégorie</Label>
                 <Input
                   type="select"
@@ -249,15 +311,6 @@ class ModalAddProduct extends Component {
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.qteError}
                 </p>
-              </FormGroup>
-              <FormGroup>
-                <Label>L'url de l'image</Label>
-
-                <Input
-                  placeholder="Url..."
-                  name="url"
-                  onChange={this.handleOnChange}
-                ></Input>
               </FormGroup>
             </ModalBody>
             <ModalFooter>
