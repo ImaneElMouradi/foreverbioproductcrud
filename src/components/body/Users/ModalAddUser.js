@@ -7,7 +7,8 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
+  FormText
 
 } from "reactstrap";
 
@@ -26,12 +27,14 @@ class ModalAddUser extends Component {
     role: "USER",
     email: "",
     url:
-      "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
+      "",
     firstNameError: "",
     lastNameError: "",
     birthDateError: "",
     passwordError: "",
-    emailError: ""
+    emailError: "",
+    selectedFile: null,
+    selectedFileBinary: "",
   };
 
   handleOnChange = e => {
@@ -44,15 +47,55 @@ class ModalAddUser extends Component {
     }));
   };
 
+  fileSelectedHandler = event => {
 
-  //TODO: Adapt this function
+    this.getBase64(event.target.files[0]).then(data => {
+     this.setState({
+      selectedFileBinary : data,
+     })
+     console.log(this.state.selectedFileBinary);
+    });
+    this.setState({
+      selectedFile: event.target.files[0]
+
+    })
+    
+  }
+
+  fileUploadHandler = async ()  =>{
+    console.log( this.state.selectedFile);
+    return axios.post(
+      'https://api.imgur.com/3/image', {
+        image:  "'"+ this.state.selectedFileBinary.split(",")[1]+ "'",
+       
+        
+      }, {
+        headers: {
+          "Authorization": "Client-ID b22b3f6d28510a1" ,
+        }
+      }
+    )
+  
+}
+
+
 
   handleAddUser = e => {
+
+    
     this.clearFormError();
     e.preventDefault();
     const isValid = this.validate();
 
-    const {
+   
+    if (isValid) {
+      console.log("passed");
+      this.fileUploadHandler().then(response => {
+        this.setState({
+          url: response.data.data.link,
+      });
+
+      const {
         firstName,
         lastName,
         birthDate,
@@ -61,7 +104,7 @@ class ModalAddUser extends Component {
         email,
       url
     } = this.state;
-    if (isValid) {
+
       axios
         .post("http://localhost:9092/user", {
             firstName,
@@ -84,6 +127,9 @@ class ModalAddUser extends Component {
           this.toggleNewUserModal();
           this.props.fetchUsers();
         });
+      });
+     
+      
       this.clearFormError();
     }
   };
@@ -98,7 +144,14 @@ class ModalAddUser extends Component {
     });
   };
 
-
+   getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
 
   validate = () => {
     let firstNameError = "";
@@ -132,6 +185,7 @@ class ModalAddUser extends Component {
   };
 
   render() {
+    
     return (
       <>
         <button className="add" onClick={this.toggleNewUserModal}>
@@ -149,7 +203,7 @@ class ModalAddUser extends Component {
             
               <FormGroup>
                 <img
-                  src={this.state.url}
+                  src={this.state.selectedFile == null? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg" : this.state.selectedFileBinary+ '' }
                   alt=""
                   style={{
                     width: "120px",
@@ -161,14 +215,16 @@ class ModalAddUser extends Component {
                   }}
                 />
               </FormGroup>
+
               <FormGroup>
-                <Label>Photo de profil URL</Label>
-                <Input
-                  placeholder="Url..."
-                  name="url"
-                  onChange={this.handleOnChange}
-                ></Input>
-              </FormGroup>
+        <Label for="exampleFile">Image</Label>
+        <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+        />
+        <FormText color="muted">
+          Veuillez choisir une image de profil.
+        </FormText>
+      </FormGroup>
+              
               <FormGroup>
                 <Label>Nom</Label>
                 <Input

@@ -6,7 +6,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 
@@ -14,7 +13,6 @@ import "./css/App.css";
 import UserPage from "./Pages/UserPage";
 
 class App extends Component {
-
 
   render() {
     return (
