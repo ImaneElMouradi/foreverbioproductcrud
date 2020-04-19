@@ -8,8 +8,7 @@ class Footer extends Component {
       <>
         <footer className="fixed-bottom">
           <p>
-            &copy;2020 - Forever<em className="text-success">BIO </em> - Imane
-            El Mouradi
+            &copy;2020 - Forever<em className="text-success">BIO </em> 
           </p>
         </footer>
       </>

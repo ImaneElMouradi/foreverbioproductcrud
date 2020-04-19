@@ -16,6 +16,7 @@ import axios from "axios";
 import "../../../css/body/AddProduct.css";
 
 class ModalAddProduct extends Component {
+  
   state = {
     modalNewProduct: false,
     nomCat: "",
@@ -26,8 +27,7 @@ class ModalAddProduct extends Component {
     etat: "",
     prix: "",
     qte: "",
-    url:
-      "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
+    url:"https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
     nomError: "",
     descError: "",
     srcError: "",

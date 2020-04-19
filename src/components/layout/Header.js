@@ -30,19 +30,19 @@ class Header extends Component {
         <Collapse  navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/products"  className="text-success"> Produits </NavLink>
+              <NavLink href="/products"  className="nav-element" > Produits </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/users" className="text-success">Utilisateurs </NavLink>
+              <NavLink href="/users" className="nav-element">Utilisateurs </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/users" className="text-success">Categories</NavLink>
+              <NavLink href="/categories" className="nav-element">Categories</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/users" className="text-success"> Fournisseurs</NavLink>
+              <NavLink href="/users" className="nav-element"> Fournisseurs</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/users" className="text-success"> Commandes </NavLink>
+              <NavLink href="/users" className="nav-element"> Commandes </NavLink>
             </NavItem>
            
           </Nav>
