@@ -12,8 +12,8 @@ class ListUser extends Component {
     users: []
   };
 
-  fetchUsers = () => {
-    axios.get("http://localhost:9092/user").then(res => {
+  fetchUsers = async () => {
+    return axios.get("http://localhost:9092/user").then(res => {
       const users = res.data;
       console.log(users);
       this.setState({ users });
@@ -28,10 +28,10 @@ class ListUser extends Component {
     this.setState({ search: e.target.value });
   };
 
-  //TODO: a modifier
+
   onSubmitSearchText = () => {
     axios
-      .get("http://localhost:9092/user?search="+ this.state.search)
+      .get("http://localhost:9092/user?search=" + this.state.search)
       .then(res => {
         const users = res.data;
         this.setState({ users });
@@ -44,16 +44,33 @@ class ListUser extends Component {
     return (
       <>
         <div className="search-container search">
-        <select className="mr-3"
-                  type="select"
-                  name="role"
-                  onChange={this.handleOnChange}
-                  defaultValue="Choisir un role..."
-                >
-                  <option disabled>Choisir un role...</option>
-                  <option>Utilisateur</option>
-                  <option>Administrateur</option>
-                </select>
+          <select className="mr-3"
+            type="select"
+            name="role"
+            style={{
+              width: "200px",
+              height: "30px"
+            }}
+            defaultValue="Choisir un role"
+            onChange={async (e) => {
+              e.persist()
+
+          
+              await this.fetchUsers();
+
+                this.setState({
+                  users: this.state.users.filter((user) => e.target.value==="Tout" || user.role === e.target.value)
+                    
+                });
+              } 
+
+
+            }
+          >
+            <option >Tout</option>
+            <option>Utilisateur</option>
+            <option>Administrateur</option>
+          </select>
 
           <input
             type="text"
@@ -64,9 +81,9 @@ class ListUser extends Component {
           />
 
 
-              
-                
-       
+
+
+
           <button type="submit" onClick={this.onSubmitSearchText}>
             <i className="fa fa-search"></i>
           </button>
@@ -77,43 +94,43 @@ class ListUser extends Component {
 
         <ModalAddProduct fetchUsers={this.fetchUsers} />
         <div style={
-            {
-                margin: "50px",
-                
-            }
+          {
+            margin: "50px",
+
+          }
         }>
 
-        
-        <Table hover style={{
+
+          <Table hover style={{
             marginLeft: "auto",
             marginRight: "auto"
-        }}>
-        <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Email</th>
-            <th>Date de naissance</th>
-            <th>Role</th>
-            <th>Date de création</th>
-          </tr>
-        </thead>
-        <tbody>
-        {this.state.users.map(user => (
-              <User
-              key={user.id}
-              user={user}
-              fetchUsers={this.fetchUsers}
-            />
+          }}>
+            <thead>
+              <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Date de naissance</th>
+                <th>Role</th>
+                <th>Date de création</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.users.map(user => (
+                <User
+                  key={user.id}
+                  user={user}
+                  fetchUsers={this.fetchUsers}
+                />
 
               ))}
-        
-        </tbody>
 
-      </Table >
+            </tbody>
 
-      </div>
+          </Table >
+
+        </div>
 
       </>
     );

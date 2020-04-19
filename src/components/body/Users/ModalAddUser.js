@@ -26,8 +26,7 @@ class ModalAddUser extends Component {
     password: "",
     role: "USER",
     email: "",
-    url:
-      "",
+    url:"",
     firstNameError: "",
     lastNameError: "",
     birthDateError: "",
@@ -59,16 +58,14 @@ class ModalAddUser extends Component {
       selectedFile: event.target.files[0]
 
     })
+    console.log(this.state.selectedFile);
     
   }
 
   fileUploadHandler = async ()  =>{
-    console.log( this.state.selectedFile);
     return axios.post(
       'https://api.imgur.com/3/image', {
         image:  "'"+ this.state.selectedFileBinary.split(",")[1]+ "'",
-       
-        
       }, {
         headers: {
           "Authorization": "Client-ID b22b3f6d28510a1" ,
@@ -156,7 +153,6 @@ class ModalAddUser extends Component {
   validate = () => {
     let firstNameError = "";
     let lastNameError = "";
-    // let birthDateError = "";
     let passwordError = "";
     let emailError = "";
 
@@ -218,7 +214,7 @@ class ModalAddUser extends Component {
 
               <FormGroup>
         <Label for="exampleFile">Image</Label>
-        <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+        <Input  type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
         />
         <FormText color="muted">
           Veuillez choisir une image de profil.

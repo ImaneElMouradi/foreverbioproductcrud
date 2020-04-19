@@ -11,6 +11,7 @@ import {
 
 import "./css/App.css";
 import UserPage from "./Pages/UserPage";
+import CategoryPage from "./Pages/CategoryPage";
 
 class App extends Component {
 
@@ -25,6 +26,10 @@ class App extends Component {
 
             <Route path="/users">
               <UserPage />
+            </Route>
+
+            <Route path="/categories">
+              <CategoryPage />
             </Route>
 
 

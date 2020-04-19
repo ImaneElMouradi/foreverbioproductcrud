@@ -9,11 +9,12 @@ import "../../../css/body/ListProduct.css";
 
 class ListProduct extends Component {
   state = {
-    products: []
+    products: [],
+    categories: ["Visage","Cheveux", "Huile", "Peau", "Aliment"],
   };
 
   fetchProducts = () => {
-    axios.get("http://localhost:9092/product").then(res => {
+    return axios.get("http://localhost:9092/product").then(res => {
       const products = res.data;
       this.setState({ products });
     });
@@ -38,10 +39,43 @@ class ListProduct extends Component {
       });
   };
 
+
+
   render() {
     return (
       <>
+       <div className="search-container search">
+         
+</div>
         <div className="search-container search">
+          
+        <select className="mr-3 selectdiv" style={{
+          width: "200px",
+          height: "30px",
+          
+          
+        }
+       
+          
+        }
+            type="select"
+            name="role"
+            defaultValue="Choisir un role"
+            onChange={ async (e) => {
+              e.persist()
+              await this.fetchProducts();
+                this.setState({
+                  products: this.state.products.filter((product) => e.target.value==="Tout" || this.state.categories[product.idCat-1] === e.target.value)
+                });
+              } 
+            }
+          >
+            <option >Tout</option>
+            <option>Huile</option>
+            <option>Aliment</option>
+            <option>Visage</option>
+            <option>Cheveux</option>
+          </select>
           <input
             type="text"
             placeholder="Search.."
