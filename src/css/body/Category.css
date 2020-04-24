@@ -1,0 +1,39 @@
+
+.delete,
+.update {
+  margin: 0px 20px 0px 20px;
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+}
+
+.delete {
+  color: #ef5753;
+}
+
+.update {
+  color: #6cb2eb;
+}
+
+.vente {
+  color: green;
+}
+.rupture {
+  color: red;
+}
+
+.appro {
+  color: orange;
+}
+
+.category-image {
+  height: 300px;
+}
+
+.category-desc {
+  height: 200px;
+}
+
+.category-src {
+  height: 30px;
+}

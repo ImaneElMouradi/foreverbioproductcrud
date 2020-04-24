@@ -1,0 +1,15 @@
+table td.cell{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.profilPicture {
+
+        width: 120px;
+        height: 120px;
+        display: block;
+        margin: auto;
+        margin-bottom: 3px;
+        border-radius: 50%;
+   
+}

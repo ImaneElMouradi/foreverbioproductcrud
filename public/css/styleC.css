@@ -1,0 +1,584 @@
+
+/* FONTS */
+
+@font-face {
+	font-family: "MontL";
+	src: url("../fonts/Montserrat-Light.ttf");
+}
+@font-face {
+	font-family: "MontM";
+	src: url("../fonts/Montserrat-Medium.ttf");
+}
+
+html {
+	height: 100%;
+}
+body {
+	margin: 0 0 0 0;
+	font-family: "MontL";
+	height: 100%;
+}
+h1 {
+	font-family: "MontL";
+	font-size: 46px;
+	color: black;
+}
+header {
+    height: 40px;
+}
+.logo1 {
+	position: absolute;
+	padding: 10px;
+	height: 50px;
+}
+.logo1 {	
+	left: 0;
+}
+label img {
+	position: relative;
+	top: 9px;
+	width: 30px;
+	height: 30px;
+}
+footer {
+	position: fixed;
+	bottom: 10px;
+	right: 20px;
+}
+footer img {
+	width: 40px;
+	height: 30px;
+}
+
+/* CLASSES & IDS */
+
+
+
+
+
+.animate-box {
+	opacity: 100;
+}
+.line1 {
+	height: 150px;
+}
+.pfLine1 {
+	position: relative;
+	top: 20px;
+	height: 250px;
+}
+.line1, .pfLine1
+{
+	display: flex;
+    justify-content: space-around;
+    margin-top: 120px;
+}
+.line1 img {
+	width: 250px;
+	height: 110px;
+	transition: 0.2s;
+}
+.pfLine1 img {
+	text-align: center;
+	vertical-align: middle;
+    width: 400px;
+    height: 100%;
+    border-radius: 125px;
+	margin-bottom: 20px; 
+	transition: 0.2s;
+}
+.image1:hover img, .image2:hover img, .image3:hover img {
+	box-shadow: 0 0 15px 5px black;
+	transition: 0.2s;
+}
+.pfLine1 .image1, .pfLine1 .image2, .pfLine1 .image3 {
+    width: 400px;
+    height: 100%;	
+}
+.image1, .image2, .image3 {
+	position: relative;
+	top: 15px;
+	color:black;
+    text-decoration: none;
+}
+.image1 a,.image2 a, .image3 a
+{
+	text-decoration: none;
+}
+.image1 img,.image2 img, .image3 img
+{
+	border-radius: 90px;
+}
+.image1
+{
+	float:left;
+}
+.image3
+{
+	float:right;
+}
+.text, .text:hover 
+{
+	font-family: "MontM";
+	font-size: 16px;
+	text-align: center;
+	display:block;
+	color:black;
+	text-decoration: underline;
+	margin-top: 7px;
+}
+#conteneur
+{
+    display: flex;
+    justify-content: space-around;
+    background-image: url("../images/navbar-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    margin-top: 10px;
+}
+#info
+{
+	position: relative;
+	left: 40%;
+	transform: translate(-50%, 20px);
+	-webkit-transform: translate(-50%, 20px);
+	width:45%;
+	height:350px;
+	/*background-color: #66ccff;*/
+	/*border-radius: 30px;*/
+	box-shadow: 5px 5px 20px 0px black; 
+	border-color: #99cc00;
+	border-width: thick;
+	margin: 20px;
+}
+#info img, #info input {
+	display: inline-block;
+	height: 35px;
+	padding-bottom: 15px;
+}
+#info input {
+	position: absolute;
+	left: 54%;
+	transform: translate(-50%, 63px);
+	-webkit-transform: translate(-50%, 63px);
+	padding: 0 0;
+	border-radius: 12.5px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;	
+	border-left: 1px solid black;
+	width: 400px;
+	color: gray;
+	font-size: 16px;
+	font-family: "MontL";
+	padding-left: 10px;	
+}
+#info a{
+	position: absolute;
+	left: 54%;
+	transform: translate(-50%, 63px);
+	-webkit-transform: translate(-50%, 63px);
+	padding: 0 0;
+	border-radius: 12.5px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;	
+	border-left: 1px solid black;
+	width: 400px;
+	height: 35px;
+	color: gray;
+	font-size: 16px;
+	font-family: "MontL";
+	padding-left: 10px;
+	text-decoration: none;
+	color: black;
+	background-color: white;
+	padding-top: 9px;
+}
+
+.toCenter {
+	text-align: center;
+	font-size: 36px !important;
+	padding-left: 25px;
+}
+.main {
+	margin-top: 0px !important;
+	margin-bottom: 50px;
+}
+.title {
+	position: relative;
+	left: 30px;
+	font-family: "MontM";
+	font-size: 20px;
+	color: black;
+	line-height: 20px;
+	max-width: 75%;
+	/*margin-top: 50px;*/
+}
+.title span {
+	display: inline-block;
+	line-height: normal;	
+	vertical-align: middle;
+}
+.parcoursTextAreas {
+	display: block;
+	padding-bottom: 30px;
+}
+.textForm {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%,0);
+	margin: 15px 0;
+	padding: 10px 10px;
+	border-radius: 15px;
+    max-width: 1120px;
+    min-width: 720px;
+    min-height: 45px;
+    font-family: "MontL";
+    font-size: 16px;
+	transition: 0.1s;
+	/*background-color: #989898;*/
+	/*border:solid;*/
+	box-shadow: 5px 5px 15px 0px black; 
+
+}
+.textForm:focus {
+	outline: none;
+	transition: 0.1s;
+	border-width: 3px;
+}
+.limitHeight {
+	height: 100% !important;
+	padding-bottom: 15px !important;
+}
+
+.element {
+	text-decoration: none;
+	width: 20%;
+	color: black;
+	transition: 0.3s;
+}
+.element:hover {
+	background-color: white;
+	transition: 0.3s;
+}
+.element div {
+	line-height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#localisation,  {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%,0);
+	-webkit-transform: translate(-50%,0);
+	width: 1000px;
+	height: 45px;
+	border-radius: 22.5px;
+	border-width: 1px;
+	margin: 20px 0;
+	padding-left: 10px;
+	font-family: "MontL";
+	font-size: 16px;
+}
+
+#localisation:focus, #localisation:hover,{
+	outline: none;
+	transition: 0.1s;
+	border-width: 3px;
+}
+
+h2 {
+	position: relative;
+	left: 170px;
+	width: 80%;
+	/*text-align: center;*/
+
+}
+
+.rubriques
+{
+	position: relative;
+	top: 40px;
+	text-align:center;
+	margin-top: 0;
+}
+.absol {
+	position: absolute !important;
+}
+.relat {
+	position: relative !important;
+}
+.textForm a
+{
+	text-decoration: none;
+	color: white;
+}
+
+.lienparcours {
+	text-decoration: none;
+	text-align: center;
+	padding-top: 10px;
+	color: black;
+	height: 50px !important ;
+	width: 25%;
+	border-radius: 30px;
+	box-shadow: 5px 5px 15px 0px black;
+	transition: 0.3s;
+	
+	font-family: "MontM";
+	right: 20%;
+	position: fixed;
+	background-color:#0eb670; ;
+}
+.lienparcours:hover {
+	transition: 0.3s;
+	box-shadow: 0px 0px 0px 0px black;
+	font-family: "MontM";
+}
+#liensparcours {
+	padding-top: 15px;
+	display: flex;
+	justify-content: space-around;
+	width: 84%;
+	transform: translate(-50%,0);
+	-webkit-transform: translate(-50%,0);
+
+}
+.sideprofile {
+	position: absolute;
+	left: 20px;
+	margin-top: 20px;
+	padding: 0px 15px;
+	/*left:0;
+	/*transform: translate(-50%, 20px);
+	-webkit-transform: translate(-50%, 20px);*/
+	width:20%;
+	/*height:350px;*/
+	/*background-color: #989898;*/
+	border-radius: 30px;
+	box-shadow: 5px 5px 15px 0px black; 
+	/*top : 30%;*/
+}
+.othersideprofile {
+	position: absolute;
+	right: 100px;
+	margin-top: 20px;
+	padding: 10px;
+	/*left:0;
+	/*transform: translate(-50%, 20px);
+	-webkit-transform: translate(-50%, 20px);*/
+	width: 240px;
+	height: 270px;
+	/*height:350px;*/
+	/*background-color: #989898;*/
+	border-radius: 30px;
+	box-shadow: 5px 5px 15px 0px black; 
+	/*top : 30%;*/
+}
+.othersideprofile img {
+	border-radius: 30px;
+	width: 100%;
+	height: 100%;
+}
+.leprofil
+{
+    display: inline;
+   /* justify-content: center;
+   /* height: 350px;  Un peu de hauteur pour que les éléments aient la place de bouger */
+}
+#liens {
+	position: relative;
+	top: 70%;
+	width: 100%;
+	background-color: #37925b;
+	height: 150px;
+}
+#liens .title {
+	margin-top: 0; 
+}
+#liens a {
+	display: inline;
+	position: relative;
+	left: 35%;
+	top: 20px;
+	margin-right: 15px;
+	padding: 10px 15px;
+}
+.leftE {
+	display: inline;
+	left: 0;
+}
+.rightE {
+	right: 0;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: black;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: black;
+}
+#infofourn {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%,0);
+	-webkit-transform: translate(-50%,0);
+	width: 1000px;
+	height: 30px;
+	/*border-radius: 22.5px;
+	/*border-width: 1px;*/
+	/*margin: 20px 0;*/
+	padding-left: 10px;
+	font-family: "MontL";
+	font-size: 16px;
+	border-width: thin;
+	border-color: #003300;
+}
+#liensfourn {
+	position: relative;
+	/*top: 100%;*/
+	width: 100%;
+	background-color: #37925b;
+	height: 200px;
+}
+#liensfourn a {
+	display: inline;
+	position: relative;
+	left: 35%;
+	top: 20px;
+	margin-right: 15px;
+	padding: 10px 15px;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.myBtn {
+	text-decoration: none;
+	text-align: center;
+	color: #00cc99;
+	height: 30px !important ;
+	width: 20%;
+	/*border-radius: 30px;
+	box-shadow: 5px 5px 15px 0px black;*/
+	transition: 0.3s;
+	font-family: "MontM";
+	position: fixed;
+	top: 100px;
+	left: 20px;
+	background :none;
+	font-size: 16px;
+	border : none;
+	cursor:pointer;
+
+}
+.myBtn:hover {
+	font-family: "MontM";
+	transition: 0.2s;
+	transform: scale(1.2);
+}
+.btnajouter{
+	text-decoration: none;
+	text-align: center;
+	transition: 0.3s;
+	font-family: "MontM";
+	font-size: 16px;
+	border-radius: 30px;
+	right: 150px;
+	background-color: #0033cc;
+	cursor:pointer;
+}
+.btnajouter:hover {
+	font-family: "MontM";
+	/*box-shadow: 0 0 15px 5px #00cc99;*/
+	transition: 0.2s;
+	transform: scale(1.2);
+
+}
+#search-text-input{
+    border-top:thin solid  #e5e5e5;
+    border-right:thin solid #e5e5e5;
+    border-bottom:0;
+    border-left:thin solid  #e5e5e5;
+    box-shadow:0px 1px 1px 1px #e5e5e5;
+    float:right;
+    height:17px;
+    margin:.8em 0 0 .5em; 
+    outline:0;
+    padding:.4em 0 .4em .6em; 
+    width:183px; 
+}
+  
+#button-holder{
+    background-color:#f1f1f1;
+    border-top:thin solid #e5e5e5;
+    box-shadow:1px 1px 1px 1px #e5e5e5;
+    cursor:pointer;
+    float:right;
+    height:27px;
+    margin:11px 0 0 0;
+    text-align:center;
+    width:50px;
+}
+  
+#button-holder img{
+    margin:4px;
+    width:20px; 
+}
+.btnannuler {
+	text-decoration: none;
+	text-align: center;
+	transition: 0.3s;
+	font-family: "MontM";
+	font-size: 16px;
+	border-radius: 30px;
+	right: 150px;
+	background-color: #666666;
+	cursor:pointer;
+}
+.btnannuler:hover {
+	font-family: "MontM";
+	transition: 0.2s;
+	transform: scale(1.2);
+}
