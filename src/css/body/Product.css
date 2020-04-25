@@ -1,7 +1,6 @@
-.card {
-}
 
-.delete,
+
+.delete, .cart,
 .update {
   margin: 0px 20px 0px 20px;
   border: none;
@@ -38,5 +37,10 @@
 
 .product-src {
   height: 30px;
+}
+
+.cart {
+  color: #28a745;
+
 }
 
