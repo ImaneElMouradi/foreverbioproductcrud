@@ -32,7 +32,6 @@ class User extends Component {
       firstName,
       lastName,
       birthDate,
-      password,
       role,
       email,
       url,
