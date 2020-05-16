@@ -8,14 +8,12 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
-
+  FormText,
 } from "reactstrap";
 
 import "../../../css/body/AddProduct.css";
 
 import axios from "axios";
-
 
 class ModalAddCategory extends Component {
   state = {
@@ -29,69 +27,57 @@ class ModalAddCategory extends Component {
     selectedFileBinary: "",
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   toggleNewCategoryModal = () => {
-    this.setState(prevState => ({
-      modalNewCategory: !prevState.modalNewCategory
+    this.setState((prevState) => ({
+      modalNewCategory: !prevState.modalNewCategory,
     }));
   };
 
-  fileSelectedHandler = event => {
-
-    this.getBase64(event.target.files[0]).then(data => {
+  fileSelectedHandler = (event) => {
+    this.getBase64(event.target.files[0]).then((data) => {
       this.setState({
         selectedFileBinary: data,
-      })
+      });
       console.log(this.state.selectedFileBinary);
     });
     this.setState({
-      selectedFile: event.target.files[0]
-
-    })
-
-  }
+      selectedFile: event.target.files[0],
+    });
+  };
 
   fileUploadHandler = async () => {
     console.log(this.state.selectedFile);
     return axios.post(
-      'https://api.imgur.com/3/image', {
-      image: "'" + this.state.selectedFileBinary.split(",")[1] + "'",
-
-
-    }, {
-      headers: {
-        "Authorization": "Client-ID b22b3f6d28510a1",
+      "https://api.imgur.com/3/image",
+      {
+        image: "'" + this.state.selectedFileBinary.split(",")[1] + "'",
+      },
+      {
+        headers: {
+          Authorization: "Client-ID b22b3f6d28510a1",
+        },
       }
-    }
-    )
+    );
+  };
 
-  }
-
-
-
-  handleAddCategory = e => {
+  handleAddCategory = (e) => {
     this.clearFormError();
     e.preventDefault();
     const isValid = this.validate();
 
-
     if (isValid) {
-      this.fileUploadHandler().then(response => {
+      this.fileUploadHandler().then((response) => {
         this.setState({
           url: response.data.data.link,
         });
 
-        const {
-
-          nom,
-          url,
-          description,
-        } = this.state;
+        const { nom, url, description } = this.state;
         axios
-          .post("http://localhost:9092/category", {
+          .post(`${process.env.REACT_APP_API_URL}/category`, {
             nom,
             url,
             description,
@@ -108,7 +94,6 @@ class ModalAddCategory extends Component {
           });
       });
 
-
       this.clearFormError();
     }
   };
@@ -117,7 +102,6 @@ class ModalAddCategory extends Component {
     this.setState({
       nomError: "",
       descriptionError: "",
-
     });
   };
 
@@ -126,21 +110,21 @@ class ModalAddCategory extends Component {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
-  }
+  };
 
   validate = () => {
     let nomError = "";
     let descriptionError = "";
-
 
     if (!this.state.nom.match(/^[A-Za-z\s-é]+$/)) {
       nomError = "Le nom de la catégorie est invalide";
     }
 
     if (this.state.description.length === 0 || this.state.description == null) {
-      descriptionError = "La description de la catégorie ne doit pas êtres vide."
+      descriptionError =
+        "La description de la catégorie ne doit pas êtres vide.";
     }
 
     if (nomError || descriptionError) {
@@ -151,11 +135,10 @@ class ModalAddCategory extends Component {
   };
 
   render() {
-
     return (
       <>
         <button className="add" onClick={this.toggleNewCategoryModal}>
-          <i className="fas fa-plus"></i>  Ajouter une Catégorie
+          <i className="fas fa-plus" /> Ajouter une Catégorie
         </button>
         <div>
           <Modal
@@ -164,11 +147,15 @@ class ModalAddCategory extends Component {
           >
             <ModalHeader toggle={this.props.toggleModalNewCategory}>
               Ajouter une nouvelle Catégorie
-        </ModalHeader>
+            </ModalHeader>
             <ModalBody>
               <FormGroup>
                 <img
-                  src={this.state.selectedFile == null ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg" : this.state.selectedFileBinary + ''}
+                  src={
+                    this.state.selectedFile == null
+                      ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg"
+                      : this.state.selectedFileBinary + ""
+                  }
                   alt=""
                   style={{
                     width: "300px",
@@ -181,11 +168,16 @@ class ModalAddCategory extends Component {
 
               <FormGroup>
                 <Label for="exampleFile">Image</Label>
-                <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+                <Input
+                  type="file"
+                  name="file"
+                  id="exampleFile"
+                  accept="image/*"
+                  onChange={this.fileSelectedHandler}
                 />
                 <FormText color="muted">
                   Veuillez choisir une image de la catégorie.
-        </FormText>
+                </FormText>
               </FormGroup>
 
               <FormGroup>
@@ -195,7 +187,7 @@ class ModalAddCategory extends Component {
                   name="nom"
                   onChange={this.handleOnChange}
                   autoComplete="off"
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.nomError}
                 </p>
@@ -203,7 +195,12 @@ class ModalAddCategory extends Component {
 
               <FormGroup>
                 <Label for="description">Description</Label>
-                <Input type="textarea" name="description" id="description" onChange={this.handleOnChange} />
+                <Input
+                  type="textarea"
+                  name="description"
+                  id="description"
+                  onChange={this.handleOnChange}
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.descriptionError}
                 </p>
@@ -212,7 +209,7 @@ class ModalAddCategory extends Component {
             <ModalFooter>
               <Button color="primary" onClick={this.handleAddCategory}>
                 Ajouter
-          </Button>
+              </Button>
               <Button
                 color="secondary"
                 onClick={() => {
@@ -221,7 +218,7 @@ class ModalAddCategory extends Component {
                 }}
               >
                 Annuler
-          </Button>
+              </Button>
             </ModalFooter>
           </Modal>
         </div>

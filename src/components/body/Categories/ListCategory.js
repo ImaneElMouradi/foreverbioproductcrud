@@ -9,11 +9,11 @@ import "../../../css/body/ListCategory.css";
 
 class ListCategory extends Component {
   state = {
-    categories: []
+    categories: [],
   };
 
   fetchCategories = () => {
-    axios.get("http://localhost:9092/category").then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/category`).then((res) => {
       const categories = res.data;
       console.log(categories);
       this.setState({ categories });
@@ -24,14 +24,14 @@ class ListCategory extends Component {
     this.fetchCategories();
   };
 
-  onChangeSearchText = e => {
+  onChangeSearchText = (e) => {
     this.setState({ search: e.target.value });
   };
 
   onSubmitSearchText = () => {
     axios
-      .get("http://localhost:9092/category?search="+ this.state.search)
-      .then(res => {
+      .get("http://localhost:9092/category?search=" + this.state.search)
+      .then((res) => {
         const categories = res.data;
         this.setState({ categories });
       });
@@ -49,25 +49,23 @@ class ListCategory extends Component {
             onChange={this.onChangeSearchText}
           />
           <button type="submit" onClick={this.onSubmitSearchText}>
-            <i className="fa fa-search"></i>
+            <i className="fa fa-search" />
           </button>
           <button className="refresh ml-3" onClick={this.fetchCategories}>
-            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-redo-alt" />
           </button>
         </div>
-            <ModalAddCategory fetchCategories={this.fetchCategories} />
+        <ModalAddCategory fetchCategories={this.fetchCategories} />
 
         <div className="list-card row">
-            {this.state.categories.map(category => (
+          {this.state.categories.map((category) => (
             <Category
-                key={category.id}
-                category={category}
-                fetchCategories={this.fetchCategories}
+              key={category.id}
+              category={category}
+              fetchCategories={this.fetchCategories}
             />
-            ))}
+          ))}
         </div>
-
-       
       </>
     );
   }
