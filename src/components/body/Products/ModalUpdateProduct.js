@@ -7,7 +7,7 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
 } from "reactstrap";
 
 import axios from "axios";
@@ -22,36 +22,42 @@ class UpdateProduct extends Component {
     etat: "",
     prix: "",
     qte: "",
-    url: ""
+    url: "",
   };
 
   fetchProductById = () => {
-    axios.get(`http://localhost:9092/product/${this.props.id}`).then(res => {
-      const {
-        idCat,
-        nom,
-        description,
-        source,
-        etat,
-        prix,
-        qte,
-        url
-      } = res.data;
-      this.setState({
-        idCat,
-        nom,
-        description,
-        source,
-        etat,
-        prix,
-        qte,
-        url
+    axios
+      .get(
+        `https://forever-bio-back-end-app.herokuapp.com/product/${
+          this.props.id
+        }`
+      )
+      .then((res) => {
+        const {
+          idCat,
+          nom,
+          description,
+          source,
+          etat,
+          prix,
+          qte,
+          url,
+        } = res.data;
+        this.setState({
+          idCat,
+          nom,
+          description,
+          source,
+          etat,
+          prix,
+          qte,
+          url,
+        });
+        this.checkCategory();
       });
-      this.checkCategory();
-    });
   };
 
-  chooseCategory = name => {
+  chooseCategory = (name) => {
     if (name === "Visage") {
       this.setState({ idCat: 1 });
     } else if (name === "Cheveux") {
@@ -85,7 +91,7 @@ class UpdateProduct extends Component {
     this.checkCategory();
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -105,20 +111,25 @@ class UpdateProduct extends Component {
       etat,
       prix,
       qte,
-      url
+      url,
     } = this.state;
     console.log("test", idCat);
     axios
-      .put(`http://localhost:9092/product/${this.props.id}`, {
-        idCat,
-        nom,
-        description,
-        source,
-        etat,
-        prix,
-        qte,
-        url
-      })
+      .put(
+        `https://forever-bio-back-end-app.herokuapp.com/product/${
+          this.props.id
+        }`,
+        {
+          idCat,
+          nom,
+          description,
+          source,
+          etat,
+          prix,
+          qte,
+          url,
+        }
+      )
       .then(async () => {
         console.log(" produit modifié ", this.props.id);
         this.props.toggleModalUpdateProduct();
@@ -136,7 +147,7 @@ class UpdateProduct extends Component {
       etat,
       prix,
       qte,
-      url
+      url,
     } = this.state;
     return (
       <Modal
@@ -157,7 +168,7 @@ class UpdateProduct extends Component {
                 display: "block",
                 margin: "auto",
                 marginBottom: "3px",
-                borderRadius: "8px"
+                borderRadius: "8px",
               }}
             />
             <Label>Nom de la catégorie</Label>
@@ -183,7 +194,7 @@ class UpdateProduct extends Component {
               name="nom"
               onChange={this.handleOnChange}
               value={nom}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Description</Label>
@@ -192,7 +203,7 @@ class UpdateProduct extends Component {
               name="description"
               onChange={this.handleOnChange}
               value={description}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Provenance et source</Label>
@@ -201,7 +212,7 @@ class UpdateProduct extends Component {
               name="source"
               onChange={this.handleOnChange}
               value={source}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Etat</Label>
@@ -225,7 +236,7 @@ class UpdateProduct extends Component {
               name="prix"
               onChange={this.handleOnChange}
               value={prix}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Quantité</Label>
@@ -234,7 +245,7 @@ class UpdateProduct extends Component {
               name="qte"
               onChange={this.handleOnChange}
               value={qte}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>L'url de l'image</Label>
@@ -243,7 +254,7 @@ class UpdateProduct extends Component {
               name="url"
               onChange={this.handleOnChange}
               value={url}
-            ></Input>
+            />
           </FormGroup>
         </ModalBody>
         <ModalFooter>
