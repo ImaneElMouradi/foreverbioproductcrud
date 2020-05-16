@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import axios from "axios";
+import { REACT_APP_BASE_URL } from "dotenv/config";
 
 import Product from "./Product";
 import ModalAddProduct from "./ModalAddProduct";
@@ -14,12 +15,10 @@ class ListProduct extends Component {
   };
 
   fetchProducts = () => {
-    return axios
-      .get("https://forever-bio-back-end-app.herokuapp.com/product")
-      .then((res) => {
-        const products = res.data;
-        this.setState({ products });
-      });
+    return axios.get(`${REACT_APP_BASE_URL}/product`).then((res) => {
+      const products = res.data;
+      this.setState({ products });
+    });
   };
 
   componentDidMount = () => {
