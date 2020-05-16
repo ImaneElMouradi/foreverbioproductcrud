@@ -1,22 +1,17 @@
 import React, { Component } from "react";
 
-import "../../../css/body/Commande.css";
 import ModalShowUser from "./ModalShowUser";
 import ModalShowProducts from "./ModalShowProducts";
+import ModalUpdateDelivery from "./ModalUpdateDelivery";
+import ModalDeleteDelivery from "./ModalDeleteDelivery";
 
-import axios from "axios";
-
-class Commande extends Component {
+export default class Delivery extends Component {
   state = {
     modalShowUser: false,
     modalShowProducts: false,
-    idLivreur: 3,
-    state: "",
+    modalUpdateDelivery: false,
+    modalDeleteDelivery: false,
   };
-
-  componentDidMount() {
-    this.setState({ state: this.props.commande.state });
-  }
 
   toggleModalShowUser = () => {
     console.log(!this.modalShowUser);
@@ -31,29 +26,23 @@ class Commande extends Component {
     }));
   };
 
+  toggleModalUpdateDelivery = () => {
+    this.setState((prevState) => ({
+      modalUpdateDelivery: !prevState.modalUpdateDelivery,
+    }));
+  };
+
+  toggleModalDeleteDelivery = () => {
+    this.setState((prevState) => ({
+      modalDeleteDelivery: !prevState.modalDeleteDelivery,
+    }));
+  };
+
   stateColor = (state) => {
     if (state === "En attente") return "red";
     else if (state === "En cours") return "orange";
     else if (state === "Achevé") return "green";
   };
-
-  addDelivery = () => {
-    console.log("test");
-    axios
-      .put(
-        `http://localhost:9092/commandes/${
-          this.props.commande.id
-        }?state=En cours&idLivreur=${this.state.idLivreur}`
-      )
-      .then(() => {
-        this.props.fetchCommandes();
-      });
-  };
-
-  disableDeliveryIcon = () => {
-    if (this.props.commande.state === "En cours") return "disabled";
-  };
-
   render() {
     const {
       id,
@@ -62,10 +51,10 @@ class Commande extends Component {
       paymentMethod,
       state,
       user,
-      idLivreur,
       listLigneCommande,
     } = this.props.commande;
-    console.log(listLigneCommande);
+    // console.log(listLigneCommande);
+
     return (
       <>
         <tr key={id}>
@@ -77,18 +66,19 @@ class Commande extends Component {
 
           <td className="cell">
             <button
-              className={`delivery ${this.disableDeliveryIcon()}`}
-              onClick={() => {
-                this.addDelivery();
-              }}
+              className="delivery"
+              onClick={this.toggleModalUpdateDelivery}
             >
-              <i class="fas fa-truck" />
+              <i class="fas fa-pen" />
             </button>
             <button className="update" onClick={this.toggleModalShowUser}>
               <i className="fas fa-user" />
             </button>
             <button className="cart" onClick={this.toggleModalShowProducts}>
               <i className="fas fa-shopping-cart" />
+            </button>
+            <button className="delete" onClick={this.toggleModalDeleteDelivery}>
+              <i class="fas fa-times-circle" />
             </button>
           </td>
         </tr>
@@ -109,9 +99,24 @@ class Commande extends Component {
           listLigneCommande={listLigneCommande}
           toggleModalShowProducts={this.toggleModalShowProducts}
         />
+
+        <ModalUpdateDelivery
+          id={id}
+          modalUpdateDelivery={this.state.modalUpdateDelivery}
+          commande={this.props.commande}
+          toggleModalUpdateDelivery={this.toggleModalUpdateDelivery}
+          idLivreur={this.props.idLivreur}
+          fetchCommandesByIdLivreur={this.props.fetchCommandesByIdLivreur}
+        />
+
+        <ModalDeleteDelivery
+          id={id}
+          modalDeleteDelivery={this.state.modalDeleteDelivery}
+          toggleModalDeleteDelivery={this.toggleModalDeleteDelivery}
+          fetchCommandesByIdLivreur={this.props.fetchCommandesByIdLivreur}
+          state={this.props.commande.state}
+        />
       </>
     );
   }
 }
-
-export default Commande;

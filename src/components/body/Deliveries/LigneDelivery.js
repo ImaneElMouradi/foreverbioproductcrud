@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "../../../css/body/User.css";
 
-class LigneCommande extends Component {
+class LigneDelivery extends Component {
   state = {
     modalDeleteUser: false,
     modalUpdateUser: false,
@@ -14,7 +14,7 @@ class LigneCommande extends Component {
   }
 
   checkCategory = () => {
-    const { idCat } = this.props.ligneCommande.product;
+    const { idCat } = this.props.ligneDelivery.product;
     if (idCat === 1) {
       return this.setState({ nomCat: "Visage" });
     } else if (idCat === 2) {
@@ -29,7 +29,7 @@ class LigneCommande extends Component {
   };
 
   render() {
-    const { qte, product, total } = this.props.ligneCommande;
+    const { qte, product, total } = this.props.ligneDelivery;
     console.log(product);
     return (
       <>
@@ -56,4 +56,4 @@ class LigneCommande extends Component {
   }
 }
 
-export default LigneCommande;
+export default LigneDelivery;

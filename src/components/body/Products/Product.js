@@ -9,18 +9,18 @@ class Product extends Component {
   state = {
     modalDeleteProduct: false,
     modalUpdateProduct: false,
-    nomCat: ""
+    nomCat: "",
   };
 
   toggleModalDeleteProduct = () => {
-    this.setState(prevState => ({
-      modalDeleteProduct: !prevState.modalDeleteProduct
+    this.setState((prevState) => ({
+      modalDeleteProduct: !prevState.modalDeleteProduct,
     }));
   };
 
   toggleModalUpdateProduct = () => {
-    this.setState(prevState => ({
-      modalUpdateProduct: !prevState.modalUpdateProduct
+    this.setState((prevState) => ({
+      modalUpdateProduct: !prevState.modalUpdateProduct,
     }));
   };
 
@@ -60,18 +60,24 @@ class Product extends Component {
       nom,
       description,
       source,
+      unit,
       etat,
       prix,
       qte,
-      url
+      url,
     } = this.props.product;
 
     return (
       <>
-        <div className="card col-sm-12 col-md-4 col-lg-3" style={{ width: "18rem" }}>
+        <div
+          className="card col-sm-12 col-md-4 col-lg-3"
+          style={{ width: "18rem" }}
+        >
           <img src={url} className="card-img-top product-image" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{nom}</h5>
+            <h5 className="card-title">
+              {nom} ({unit})
+            </h5>
             <p className="card-text product-desc">{description}</p>
             <p className="product-src">
               <i>{source}</i>
@@ -95,10 +101,10 @@ class Product extends Component {
           </ul>
           <div className="card-body m-auto">
             <button className="delete" onClick={this.toggleModalDeleteProduct}>
-              <i className="fas fa-trash-alt"></i>
+              <i className="fas fa-trash-alt" />
             </button>
             <button className="update" onClick={this.toggleModalUpdateProduct}>
-              <i className="fas fa-pen"></i>
+              <i className="fas fa-pen" />
             </button>
           </div>
         </div>

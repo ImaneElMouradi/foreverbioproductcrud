@@ -8,7 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
+  FormText,
 } from "reactstrap";
 
 import axios from "axios";
@@ -16,7 +16,6 @@ import axios from "axios";
 import "../../../css/body/AddProduct.css";
 
 class ModalAddProduct extends Component {
-  
   state = {
     modalNewProduct: false,
     nomCat: "",
@@ -24,79 +23,76 @@ class ModalAddProduct extends Component {
     nom: "",
     description: "",
     source: "",
+    unit: "",
     etat: "",
     prix: "",
     qte: "",
-    url:"https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
+    url:
+      "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg",
     nomError: "",
     descError: "",
     srcError: "",
+    unitError: "",
     prixError: "",
     qteError: "",
     selectedFile: null,
     selectedFileBinary: "",
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   toggleNewProductModal = () => {
-    this.setState(prevState => ({
-      modalNewProduct: !prevState.modalNewProduct
+    this.setState((prevState) => ({
+      modalNewProduct: !prevState.modalNewProduct,
     }));
   };
 
-  fileSelectedHandler = event => {
-
-    this.getBase64(event.target.files[0]).then(data => {
-     this.setState({
-      selectedFileBinary : data,
-     })
-     console.log(this.state.selectedFileBinary);
+  fileSelectedHandler = (event) => {
+    this.getBase64(event.target.files[0]).then((data) => {
+      this.setState({
+        selectedFileBinary: data,
+      });
+      console.log(this.state.selectedFileBinary);
     });
     this.setState({
-      selectedFile: event.target.files[0]
-
-    })
-    
-  }
+      selectedFile: event.target.files[0],
+    });
+  };
 
   getBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
-  }
+  };
 
-  fileUploadHandler = async ()  =>{
-    console.log( this.state.selectedFile);
+  fileUploadHandler = async () => {
+    console.log(this.state.selectedFile);
     return axios.post(
-      'https://api.imgur.com/3/image', {
-        image:  "'"+ this.state.selectedFileBinary.split(",")[1]+ "'",
-       
-        
-      }, {
+      "https://api.imgur.com/3/image",
+      {
+        image: "'" + this.state.selectedFileBinary.split(",")[1] + "'",
+      },
+      {
         headers: {
-          "Authorization": "Client-ID b22b3f6d28510a1" ,
-        }
+          Authorization: "Client-ID b22b3f6d28510a1",
+        },
       }
-    )
-  
-}
+    );
+  };
 
-  handleAddProduct = e => {
+  handleAddProduct = (e) => {
     this.chooseCategory(this.state.nomCat);
 
     e.preventDefault();
     const isValid = this.validate();
 
-    
     if (isValid) {
-
-      this.fileUploadHandler().then( result => {
+      this.fileUploadHandler().then((result) => {
         this.setState({
           url: result.data.data.link,
         });
@@ -106,30 +102,31 @@ class ModalAddProduct extends Component {
           nom,
           description,
           source,
+          unit,
           etat,
           prix,
           qte,
-          url
+          url,
         } = this.state;
         axios
-        .post("http://localhost:9092/product", {
-          idCat,
-          nom,
-          description,
-          source,
-          etat,
-          prix,
-          qte,
-          url
-        })
-        .then(() => {
-          console.log("produit ajouté");
-          this.toggleNewProductModal();
-          this.props.fetchProducts();
-        });
+          .post("http://localhost:9092/product", {
+            idCat,
+            nom,
+            description,
+            source,
+            unit,
+            etat,
+            prix,
+            qte,
+            url,
+          })
+          .then(() => {
+            console.log("produit ajouté");
+            this.toggleNewProductModal();
+            this.props.fetchProducts();
+          });
+      });
 
-      })
-      
       this.clearFormError();
     }
   };
@@ -140,7 +137,7 @@ class ModalAddProduct extends Component {
       descError: "",
       srcError: "",
       prixError: "",
-      qteError: ""
+      qteError: "",
     });
   };
 
@@ -148,6 +145,7 @@ class ModalAddProduct extends Component {
     let nomError = "";
     let descError = "";
     // let srcError = "";
+    let unitError = "";
     let prixError = "";
     let qteError = "";
 
@@ -162,6 +160,10 @@ class ModalAddProduct extends Component {
     //   srcError = "Le nom du produit est obligatoire";
     // }
 
+    if (!this.state.unit) {
+      unitError = "L'unité du produit est obligatoire";
+    }
+
     if (!this.state.prix.match(/\d/)) {
       prixError = "Veuillez entrer un nombre dans le prix";
     }
@@ -170,13 +172,13 @@ class ModalAddProduct extends Component {
     }
 
     if (nomError || descError || prixError || qteError) {
-      this.setState({ nomError, descError, prixError, qteError });
+      this.setState({ nomError, descError, unitError, prixError, qteError });
       return false;
     }
     return true;
   };
 
-  chooseCategory = name => {
+  chooseCategory = (name) => {
     if (name === "Visage") {
       this.setState({ idCat: 1 });
     } else if (name === "Cheveux") {
@@ -194,7 +196,7 @@ class ModalAddProduct extends Component {
     return (
       <>
         <button className="add" onClick={this.toggleNewProductModal}>
-          <i className="fas fa-plus"></i> Ajouter un produit
+          <i className="fas fa-plus" /> Ajouter un produit
         </button>
         <div>
           <Modal
@@ -207,7 +209,11 @@ class ModalAddProduct extends Component {
             <ModalBody>
               <FormGroup>
                 <img
-                  src={this.state.selectedFile == null ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg" : this.state.selectedFileBinary}
+                  src={
+                    this.state.selectedFile == null
+                      ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg"
+                      : this.state.selectedFileBinary
+                  }
                   alt=""
                   style={{
                     width: "100px",
@@ -216,17 +222,22 @@ class ModalAddProduct extends Component {
                     margin: "auto",
                     objectFit: "cover",
                     marginBottom: "3px",
-                    borderRadius: "8px"
+                    borderRadius: "8px",
                   }}
                 />
                 <FormGroup>
-        <Label for="exampleFile">Image</Label>
-        <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
-        />
-        <FormText color="muted">
-          Veuillez choisir une image de profil.
-        </FormText>
-      </FormGroup>
+                  <Label for="exampleFile">Image</Label>
+                  <Input
+                    type="file"
+                    name="file"
+                    id="exampleFile"
+                    accept="image/*"
+                    onChange={this.fileSelectedHandler}
+                  />
+                  <FormText color="muted">
+                    Veuillez choisir une image de profil.
+                  </FormText>
+                </FormGroup>
                 <Label>Nom de la catégorie</Label>
                 <Input
                   type="select"
@@ -249,7 +260,7 @@ class ModalAddProduct extends Component {
                   name="nom"
                   onChange={this.handleOnChange}
                   autoComplete="off"
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.nomError}
                 </p>
@@ -260,7 +271,7 @@ class ModalAddProduct extends Component {
                   placeholder="Description..."
                   name="description"
                   onChange={this.handleOnChange}
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.descError}
                 </p>
@@ -271,9 +282,20 @@ class ModalAddProduct extends Component {
                   placeholder="Source..."
                   name="source"
                   onChange={this.handleOnChange}
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.srcError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label>Unité</Label>
+                <Input
+                  placeholder="Unité..."
+                  name="unit"
+                  onChange={this.handleOnChange}
+                />
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.unitError}
                 </p>
               </FormGroup>
               <FormGroup>
@@ -296,7 +318,7 @@ class ModalAddProduct extends Component {
                   placeholder="Prix..."
                   name="prix"
                   onChange={this.handleOnChange}
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.prixError}
                 </p>
@@ -307,7 +329,7 @@ class ModalAddProduct extends Component {
                   placeholder="Quantité..."
                   name="qte"
                   onChange={this.handleOnChange}
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.qteError}
                 </p>
