@@ -1,21 +1,15 @@
 import React, { Component } from "react";
 
-
 import ProductPage from "./Pages/ProductPage";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./css/App.css";
 import UserPage from "./Pages/UserPage";
 import CategoryPage from "./Pages/CategoryPage";
 import CommandePage from "./Pages/CommandePage";
+import DeliveryPage from "./Pages/DeliveryPage";
 
 class App extends Component {
-
   render() {
     return (
       <div>
@@ -37,9 +31,12 @@ class App extends Component {
               <CommandePage />
             </Route>
 
-
+            <Route path="/deliveries">
+              <DeliveryPage />
+            </Route>
           </Switch>
-        </Router></div>
+        </Router>
+      </div>
     );
   }
 }

@@ -2,18 +2,19 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import axios from "axios";
 
-import Commande from "./Commande";
+import Delivery from "./Delivery";
 
-class ListCommande extends Component {
+export default class ListDelivery extends Component {
   state = {
     commande: [],
+    idLivreur: 3,
   };
 
-  fetchCommandes = async () => {
+  fetchCommandesByIdLivreur = async () => {
     return axios.get("http://localhost:9092/commandes").then((res) => {
       console.log(res.data);
-      const commande = res.data.filter(
-        (commande) => commande.state !== "Achevé"
+      let commande = res.data.filter(
+        (commande) => commande.idLivreur === this.state.idLivreur
       );
 
       console.log(commande);
@@ -23,7 +24,7 @@ class ListCommande extends Component {
   };
 
   componentDidMount = () => {
-    this.fetchCommandes();
+    this.fetchCommandesByIdLivreur();
   };
 
   onChangeSearchText = (e) => {
@@ -53,10 +54,11 @@ class ListCommande extends Component {
             </thead>
             <tbody>
               {this.state.commande.map((commande) => (
-                <Commande
+                <Delivery
                   key={commande.id}
                   commande={commande}
-                  fetchCommandes={this.fetchCommandes}
+                  fetchCommandesByIdLivreur={this.fetchCommandesByIdLivreur}
+                  idLivreur={this.state.idLivreur}
                 />
               ))}
             </tbody>
@@ -66,5 +68,3 @@ class ListCommande extends Component {
     );
   }
 }
-
-export default ListCommande;

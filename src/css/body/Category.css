@@ -1,4 +1,4 @@
-
+.delivery,
 .delete,
 .update {
   margin: 0px 20px 0px 20px;
@@ -38,3 +38,17 @@
   height: 30px;
 }
 
+.red {
+  font-weight: bold;
+  color: red;
+}
+
+.orange {
+  font-weight: bold;
+  color: orange;
+}
+
+.green {
+  font-weight: bold;
+  color: green;
+}

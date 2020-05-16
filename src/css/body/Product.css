@@ -1,6 +1,5 @@
-
-
-.delete, .cart,
+.delete,
+.cart,
 .update {
   margin: 0px 20px 0px 20px;
   border: none;
@@ -41,6 +40,18 @@
 
 .cart {
   color: #28a745;
-
 }
 
+.delivery {
+  cursor: pointer;
+  color: #faad63;
+}
+
+.disabled {
+  cursor: none;
+  color: #b8c2cc;
+}
+
+.disabled:hover {
+  transform: scale(1);
+}
