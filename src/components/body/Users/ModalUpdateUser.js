@@ -8,7 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
+  FormText,
 } from "reactstrap";
 
 import axios from "axios";
@@ -22,60 +22,59 @@ class UpdateUser extends Component {
     role: "",
     email: "",
     url: "",
-    selectedFile: null
+    selectedFile: null,
   };
 
-  fileSelectedHandler = event => {
+  fileSelectedHandler = (event) => {
     this.setState({
-      selectedFile: event.target.file[0]
-    })
-  }
-
-  fileUploadHandler = () => {
-    axios.post(
-      'https://api.imgur.com/3/upload', {
-      image: this.selectedFile,
-    }, {
-      headers: {
-        "Authorization": "Client-ID b22b3f6d28510a1",
-
-      }
-    }
-    )
-
-  }
-
-  fetchUserById = () => {
-    axios.get(`http://localhost:9092/user/${this.props.id}`).then(res => {
-      const {
-        firstName,
-        lastName,
-        birthDate,
-        password,
-        role,
-        email,
-        url
-      } = res.data;
-      this.setState({
-        firstName,
-        lastName,
-        birthDate,
-        password,
-        role,
-        email,
-        url
-      });
-
+      selectedFile: event.target.file[0],
     });
   };
 
+  fileUploadHandler = () => {
+    axios.post(
+      "https://api.imgur.com/3/upload",
+      {
+        image: this.selectedFile,
+      },
+      {
+        headers: {
+          Authorization: "Client-ID b22b3f6d28510a1",
+        },
+      }
+    );
+  };
 
+  fetchUserById = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/user/${this.props.id}`)
+      .then((res) => {
+        const {
+          firstName,
+          lastName,
+          birthDate,
+          password,
+          role,
+          email,
+          url,
+        } = res.data;
+        this.setState({
+          firstName,
+          lastName,
+          birthDate,
+          password,
+          role,
+          email,
+          url,
+        });
+      });
+  };
 
   componentDidMount = () => {
     this.fetchUserById();
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -84,7 +83,6 @@ class UpdateUser extends Component {
   };
 
   handleUpdate = async () => {
-
     const {
       firstName,
       lastName,
@@ -92,17 +90,17 @@ class UpdateUser extends Component {
       password,
       role,
       email,
-      url
+      url,
     } = this.state;
     axios
-      .put(`http://localhost:9092/user/${this.props.id}`, {
+      .put(`${process.env.REACT_APP_API_URL}/user/${this.props.id}`, {
         firstName,
         lastName,
         birthDate,
         password,
         role,
         email,
-        url
+        url,
       })
       .then(async () => {
         console.log(" Utilisateur modifié modifié ", this.props.id);
@@ -119,7 +117,7 @@ class UpdateUser extends Component {
       password,
       role,
       email,
-      url
+      url,
     } = this.state;
     return (
       <Modal
@@ -130,7 +128,6 @@ class UpdateUser extends Component {
           Modifier un utilisateur
         </ModalHeader>
         <ModalBody>
-
           <FormGroup>
             <img
               src={url}
@@ -141,18 +138,23 @@ class UpdateUser extends Component {
                 display: "block",
                 margin: "auto",
                 marginBottom: "3px",
-                borderRadius: "50%"
+                borderRadius: "50%",
               }}
             />
           </FormGroup>
 
           <FormGroup>
             <Label for="exampleFile">Image</Label>
-            <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+            <Input
+              type="file"
+              name="file"
+              id="exampleFile"
+              accept="image/*"
+              onChange={this.fileSelectedHandler}
             />
             <FormText color="muted">
               Veuillez choisir une image de profil.
-        </FormText>
+            </FormText>
           </FormGroup>
 
           <FormGroup>
@@ -163,8 +165,7 @@ class UpdateUser extends Component {
               name="lastName"
               onChange={this.handleOnChange}
               autoComplete="off"
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Prénom</Label>
@@ -174,8 +175,7 @@ class UpdateUser extends Component {
               name="firstName"
               autoComplete="off"
               onChange={this.handleOnChange}
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label for="birthDate">Date de naissance</Label>
@@ -197,8 +197,7 @@ class UpdateUser extends Component {
               name="email"
               autoComplete="off"
               onChange={this.handleOnChange}
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Mot de passe</Label>
@@ -208,8 +207,7 @@ class UpdateUser extends Component {
               name="password"
               type="password"
               onChange={this.handleOnChange}
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Confirmer mot de passe</Label>
@@ -219,8 +217,7 @@ class UpdateUser extends Component {
               name="password"
               type="password"
               onChange={this.handleOnChange}
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Role</Label>
@@ -236,8 +233,6 @@ class UpdateUser extends Component {
               <option>Administrateur</option>
             </Input>
           </FormGroup>
-
-
         </ModalBody>
         <ModalFooter>
           <Button color="success" onClick={this.handleUpdate}>
