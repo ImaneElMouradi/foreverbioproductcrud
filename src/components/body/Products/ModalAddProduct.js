@@ -106,7 +106,7 @@ class ModalAddProduct extends Component {
           url,
         } = this.state;
         axios
-          .post("https://forever-bio-back-end-app.herokuapp.com/product", {
+          .post(`${process.env.REACT_APP_API_URL}/product`, {
             idCat,
             nom,
             description,

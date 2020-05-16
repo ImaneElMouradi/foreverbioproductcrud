@@ -30,7 +30,7 @@ class ListProduct extends Component {
 
   onSubmitSearchText = () => {
     axios
-      .post("https://forever-bio-back-end-app.herokuapp.com/product/search", {
+      .post(`${process.env.REACT_APP_API_URL}/product/search`, {
         text: this.state.search,
       })
       .then((res) => {

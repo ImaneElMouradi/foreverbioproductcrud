@@ -27,11 +27,7 @@ class UpdateProduct extends Component {
 
   fetchProductById = () => {
     axios
-      .get(
-        `https://forever-bio-back-end-app.herokuapp.com/product/${
-          this.props.id
-        }`
-      )
+      .get(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`)
       .then((res) => {
         const {
           idCat,
@@ -115,21 +111,16 @@ class UpdateProduct extends Component {
     } = this.state;
     console.log("test", idCat);
     axios
-      .put(
-        `https://forever-bio-back-end-app.herokuapp.com/product/${
-          this.props.id
-        }`,
-        {
-          idCat,
-          nom,
-          description,
-          source,
-          etat,
-          prix,
-          qte,
-          url,
-        }
-      )
+      .put(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`, {
+        idCat,
+        nom,
+        description,
+        source,
+        etat,
+        prix,
+        qte,
+        url,
+      })
       .then(async () => {
         console.log(" produit modifié ", this.props.id);
         this.props.toggleModalUpdateProduct();

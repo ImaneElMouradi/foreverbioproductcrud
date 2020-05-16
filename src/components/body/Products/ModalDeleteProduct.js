@@ -7,11 +7,7 @@ class ModalDeleteProduct extends Component {
   handleDelete = () => {
     console.log("delete", this.props.id);
     axios
-      .delete(
-        `https://forever-bio-back-end-app.herokuapp.com/product/${
-          this.props.id
-        }`
-      )
+      .delete(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`)
       .then(() => {
         this.props.toggleModalDeleteProduct();
         this.props.fetchProducts();
