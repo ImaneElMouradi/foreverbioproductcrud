@@ -23,6 +23,7 @@ class ModalAddProduct extends Component {
     nom: "",
     description: "",
     source: "",
+    unit: "",
     etat: "",
     prix: "",
     qte: "",
@@ -31,6 +32,7 @@ class ModalAddProduct extends Component {
     nomError: "",
     descError: "",
     srcError: "",
+    unitError: "",
     prixError: "",
     qteError: "",
     selectedFile: null,
@@ -100,6 +102,7 @@ class ModalAddProduct extends Component {
           nom,
           description,
           source,
+          unit,
           etat,
           prix,
           qte,
@@ -111,6 +114,7 @@ class ModalAddProduct extends Component {
             nom,
             description,
             source,
+            unit,
             etat,
             prix,
             qte,
@@ -132,6 +136,7 @@ class ModalAddProduct extends Component {
       nomError: "",
       descError: "",
       srcError: "",
+      unitError: "",
       prixError: "",
       qteError: "",
     });
@@ -141,6 +146,7 @@ class ModalAddProduct extends Component {
     let nomError = "";
     let descError = "";
     // let srcError = "";
+    let unitError = "";
     let prixError = "";
     let qteError = "";
 
@@ -155,6 +161,10 @@ class ModalAddProduct extends Component {
     //   srcError = "Le nom du produit est obligatoire";
     // }
 
+    if (!this.state.unit) {
+      unitError = "L'unité du produit est obligatoire";
+    }
+
     if (!this.state.prix.match(/\d/)) {
       prixError = "Veuillez entrer un nombre dans le prix";
     }
@@ -163,7 +173,7 @@ class ModalAddProduct extends Component {
     }
 
     if (nomError || descError || prixError || qteError) {
-      this.setState({ nomError, descError, prixError, qteError });
+      this.setState({ nomError, descError, unitError, prixError, qteError });
       return false;
     }
     return true;
@@ -276,6 +286,17 @@ class ModalAddProduct extends Component {
                 />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.srcError}
+                </p>
+              </FormGroup>
+              <FormGroup>
+                <Label>Unité</Label>
+                <Input
+                  placeholder="Unité..."
+                  name="unit"
+                  onChange={this.handleOnChange}
+                />
+                <p style={{ fontSize: 12, color: "red" }}>
+                  {this.state.unitError}
                 </p>
               </FormGroup>
               <FormGroup>

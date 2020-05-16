@@ -19,6 +19,7 @@ class UpdateProduct extends Component {
     nom: "",
     description: "",
     source: "",
+    unit: "",
     etat: "",
     prix: "",
     qte: "",
@@ -34,6 +35,7 @@ class UpdateProduct extends Component {
           nom,
           description,
           source,
+          unit,
           etat,
           prix,
           qte,
@@ -44,6 +46,7 @@ class UpdateProduct extends Component {
           nom,
           description,
           source,
+          unit,
           etat,
           prix,
           qte,
@@ -104,6 +107,7 @@ class UpdateProduct extends Component {
       nom,
       description,
       source,
+      unit,
       etat,
       prix,
       qte,
@@ -116,6 +120,7 @@ class UpdateProduct extends Component {
         nom,
         description,
         source,
+        unit,
         etat,
         prix,
         qte,
@@ -135,6 +140,7 @@ class UpdateProduct extends Component {
       nom,
       description,
       source,
+      unit,
       etat,
       prix,
       qte,
@@ -203,6 +209,15 @@ class UpdateProduct extends Component {
               name="source"
               onChange={this.handleOnChange}
               value={source}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Unité</Label>
+            <Input
+              placeholder="Unité..."
+              name="unit"
+              onChange={this.handleOnChange}
+              value={unit}
             />
           </FormGroup>
           <FormGroup>
