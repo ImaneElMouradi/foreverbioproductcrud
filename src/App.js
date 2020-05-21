@@ -9,12 +9,18 @@ import CategoryPage from "./Pages/CategoryPage";
 import CommandePage from "./Pages/CommandePage";
 import DeliveryPage from "./Pages/DeliveryPage";
 
+import Login from "./components/auth/Login";
+
 class App extends Component {
   render() {
     return (
       <div>
         <Router>
           <Switch>
+            <Route path="/" exact>
+              <Login />
+            </Route>
+
             <Route path="/products">
               <ProductPage />
             </Route>
