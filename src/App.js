@@ -10,6 +10,8 @@ import CommandePage from "./Pages/CommandePage";
 import DeliveryPage from "./Pages/DeliveryPage";
 
 import Login from "./components/auth/Login";
+import DashboardAdmin from "./components/body/Home/DashboardAdmin";
+import DashboardLivreur from "./components/body/Home/DashboardLivreur";
 
 class App extends Component {
   render() {
@@ -19,6 +21,14 @@ class App extends Component {
           <Switch>
             <Route path="/" exact>
               <Login />
+            </Route>
+
+            <Route path="/dashboardAdmin">
+              <DashboardAdmin />
+            </Route>
+
+            <Route path="/dashboardLivreur">
+              <DashboardLivreur />
             </Route>
 
             <Route path="/products">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Header from "../components/layout/Header";
+import HeaderLivreur from "../components/layout/HeaderLivreur";
 import Footer from "../components/layout/Footer";
 
 import ListDelivery from "../components/body/Deliveries/ListDelivery";
@@ -16,7 +16,7 @@ class DeliveryPage extends Component {
   render() {
     return (
       <>
-        <Header
+        <HeaderLivreur
           onChangeSearchText={this.onChangeSearchText}
           onSubmitSearchText={this.onSubmitSearchText}
         />

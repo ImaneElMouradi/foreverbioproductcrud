@@ -1,0 +1,35 @@
+h3 {
+  margin: 10px;
+  padding: 10px;
+  margin-bottom: 100px;
+}
+
+span {
+  color: green;
+  font-weight: bold;
+}
+
+img {
+  width: 150px;
+  height: 150px;
+}
+
+img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.container-dash {
+  max-width: 1100px;
+  margin: auto;
+  padding: 10px;
+}
+
+.text-dashboard {
+  padding: 5px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 19px;
+  color: black;
+  text-decoration: none !important;
+}

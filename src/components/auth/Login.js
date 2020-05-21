@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import axios from "axios";
 
+import { Redirect } from "react-router-dom";
+
 import "../../css/auth/Login.css";
 
 export default class Login extends Component {
@@ -34,7 +36,7 @@ export default class Login extends Component {
           groupError = "Email ou mot de passe incorrect.";
         } else {
           localStorage.setItem("user", JSON.stringify(res.data));
-          console.log(res.data);
+          //   console.log(res.data);
         }
         await this.setState({ groupError });
       });
@@ -67,6 +69,13 @@ export default class Login extends Component {
 
   render() {
     const { email, password } = this.state;
+    const account = JSON.parse(localStorage.getItem("user"));
+    // console.log(account);
+    if (account !== null && account.role === "Administrateur") {
+      return <Redirect to="/dashboardAdmin" />;
+    } else if (account !== null && account.role === "Livreur") {
+      return <Redirect to="dashboardLivreur" />;
+    }
     return (
       <section className="container">
         <h1 className="text-center">
