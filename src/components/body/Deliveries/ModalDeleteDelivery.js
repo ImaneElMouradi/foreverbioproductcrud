@@ -7,7 +7,7 @@ export default class ModalDeleteDelivery extends Component {
   handleDelete = () => {
     axios
       .put(
-        `${process.env.REACT_APP_API_URL}/commandes/${
+        `http://localhost:9092/commandes/${
           this.props.id
         }?state=En attente&idLivreur=0`
       )

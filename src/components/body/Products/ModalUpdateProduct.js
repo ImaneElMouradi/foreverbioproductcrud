@@ -111,7 +111,7 @@ class UpdateProduct extends Component {
     } = this.state;
     console.log("test", idCat);
     axios
-      .put(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`, {
+      .put(`http://localhost:9092/product/${this.props.id}`, {
         idCat,
         nom,
         description,

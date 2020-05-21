@@ -6,12 +6,10 @@ import axios from "axios";
 class ModalDeleteProduct extends Component {
   handleDelete = () => {
     console.log("delete", this.props.id);
-    axios
-      .delete(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`)
-      .then(() => {
-        this.props.toggleModalDeleteProduct();
-        this.props.fetchProducts();
-      });
+    axios.delete(`http://localhost:9092/product/${this.props.id}`).then(() => {
+      this.props.toggleModalDeleteProduct();
+      this.props.fetchProducts();
+    });
   };
 
   render() {

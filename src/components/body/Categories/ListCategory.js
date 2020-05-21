@@ -13,7 +13,7 @@ class ListCategory extends Component {
   };
 
   fetchCategories = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/category`).then((res) => {
+    axios.get(`http://localhost:9092/category`).then((res) => {
       const categories = res.data;
       console.log(categories);
       this.setState({ categories });
