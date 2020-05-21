@@ -52,9 +52,15 @@ class HeaderAdmin extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/users" className="nav-element">
+                  <NavLink href="/fournisseurs" className="nav-element">
                     {" "}
                     Fournisseurs
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/articles" className="nav-element">
+                    {" "}
+                    Articles
                   </NavLink>
                 </NavItem>
               </Nav>
