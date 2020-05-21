@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-import { Table } from 'reactstrap';
+import { Table } from "reactstrap";
 import axios from "axios";
 
-
 import ModalAddProduct from "../Users/ModalAddUser";
-import User from "./User"
-
+import User from "./User";
 
 class ListUser extends Component {
   state = {
-    users: []
+    users: [],
   };
 
   fetchUsers = async () => {
-    return axios.get("http://localhost:9092/user").then(res => {
+    return axios.get(`${process.env.REACT_APP_API_URL}/user`).then((res) => {
       const users = res.data;
       console.log(users);
       this.setState({ users });
@@ -24,50 +22,46 @@ class ListUser extends Component {
     this.fetchUsers();
   };
 
-  onChangeSearchText = e => {
+  onChangeSearchText = (e) => {
     this.setState({ search: e.target.value });
   };
 
-
   onSubmitSearchText = () => {
     axios
-      .get("http://localhost:9092/user?search=" + this.state.search)
-      .then(res => {
+      .get(`${process.env.REACT_APP_API_URL}/user?search=` + this.state.search)
+      .then((res) => {
         const users = res.data;
         this.setState({ users });
       });
   };
 
   render() {
-
-
     return (
       <>
         <div className="search-container search">
-          <select className="mr-3"
+          <select
+            className="mr-3"
             type="select"
             name="role"
             style={{
               width: "200px",
-              height: "30px"
+              height: "30px",
             }}
             defaultValue="Choisir un role"
             onChange={async (e) => {
-              e.persist()
+              e.persist();
 
-          
               await this.fetchUsers();
 
-                this.setState({
-                  users: this.state.users.filter((user) => e.target.value==="Tout" || user.role === e.target.value)
-                    
-                });
-              } 
-
-
-            }
+              this.setState({
+                users: this.state.users.filter(
+                  (user) =>
+                    e.target.value === "Tout" || user.role === e.target.value
+                ),
+              });
+            }}
           >
-            <option >Tout</option>
+            <option>Tout</option>
             <option>Utilisateur</option>
             <option>Administrateur</option>
           </select>
@@ -80,31 +74,27 @@ class ListUser extends Component {
             onChange={this.onChangeSearchText}
           />
 
-
-
-
-
           <button type="submit" onClick={this.onSubmitSearchText}>
-            <i className="fa fa-search"></i>
+            <i className="fa fa-search" />
           </button>
           <button className="refresh ml-3" onClick={this.fetchUsers}>
-            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-redo-alt" />
           </button>
         </div>
 
         <ModalAddProduct fetchUsers={this.fetchUsers} />
-        <div style={
-          {
+        <div
+          style={{
             margin: "50px",
-
-          }
-        }>
-
-
-          <Table hover style={{
-            marginLeft: "auto",
-            marginRight: "auto"
-          }}>
+          }}
+        >
+          <Table
+            hover
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
             <thead>
               <tr>
                 <th>Photo</th>
@@ -117,21 +107,12 @@ class ListUser extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.users.map(user => (
-                <User
-                  key={user.id}
-                  user={user}
-                  fetchUsers={this.fetchUsers}
-                />
-
+              {this.state.users.map((user) => (
+                <User key={user.id} user={user} fetchUsers={this.fetchUsers} />
               ))}
-
             </tbody>
-
-          </Table >
-
+          </Table>
         </div>
-
       </>
     );
   }

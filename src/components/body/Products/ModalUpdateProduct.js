@@ -50,8 +50,6 @@ class UpdateProduct extends Component {
         qte,
         url,
       });
-      this.checkCategory();
-    });
   };
 
   chooseCategory = (name) => {
@@ -113,7 +111,7 @@ class UpdateProduct extends Component {
     } = this.state;
     console.log("test", idCat);
     axios
-      .put(`http://localhost:9092/product/${this.props.id}`, {
+      .put(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`, {
         idCat,
         nom,
         description,

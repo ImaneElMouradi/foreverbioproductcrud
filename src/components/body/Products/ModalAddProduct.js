@@ -136,6 +136,7 @@ class ModalAddProduct extends Component {
       nomError: "",
       descError: "",
       srcError: "",
+      unitError: "",
       prixError: "",
       qteError: "",
     });
