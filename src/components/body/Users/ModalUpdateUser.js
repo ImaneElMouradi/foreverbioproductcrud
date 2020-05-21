@@ -231,6 +231,7 @@ class UpdateUser extends Component {
               <option disabled>Choisir un role...</option>
               <option>Utilisateur</option>
               <option>Administrateur</option>
+              <option>Livreur</option>
             </Input>
           </FormGroup>
         </ModalBody>
