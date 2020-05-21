@@ -50,6 +50,7 @@ class UpdateProduct extends Component {
         qte,
         url,
       });
+    });
   };
 
   chooseCategory = (name) => {
