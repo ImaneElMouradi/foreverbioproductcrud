@@ -9,6 +9,8 @@ import {
   NavLink,
 } from "reactstrap";
 
+import { logout } from "../../utils/logout";
+
 import "../../css/layout/Header.css";
 
 class HeaderAdmin extends Component {
@@ -59,7 +61,10 @@ class HeaderAdmin extends Component {
               <button className="btn btn-success ml-auto mr-1">
                 <i className="fas fa-user-circle" />
               </button>
-              <button className="btn btn-success  mr-1">
+              <button
+                className="btn btn-success  mr-1"
+                onClick={(e) => logout(e)}
+              >
                 <i className="fas fa-sign-out-alt" />
               </button>
             </Collapse>

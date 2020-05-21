@@ -35,7 +35,7 @@ export default class Login extends Component {
         if (res.data === "") {
           groupError = "Email ou mot de passe incorrect.";
         } else {
-          localStorage.setItem("user", JSON.stringify(res.data));
+          await localStorage.setItem("user", JSON.stringify(res.data));
           //   console.log(res.data);
         }
         await this.setState({ groupError });
