@@ -7,7 +7,7 @@ const PrivateRouteAdmin = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      !isLoginAdmin() ? <Redirect to="/" /> : <Component {...props} />
+      !isLoginAdmin() ? <Redirect to="/login" /> : <Component {...props} />
     }
   />
 );
