@@ -13,8 +13,12 @@ import Login from "./components/auth/Login";
 import DashboardAdmin from "./components/body/Home/DashboardAdmin";
 import DashboardLivreur from "./components/body/Home/DashboardLivreur";
 
+import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
+import PrivateRouteLivreur from "./routes/PrivateRouteLivreur";
+
 class App extends Component {
   render() {
+    const account = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Router>
@@ -23,33 +27,40 @@ class App extends Component {
               <Login />
             </Route>
 
-            <Route path="/dashboardAdmin">
-              <DashboardAdmin />
-            </Route>
+            {
+              //accessible aux administrateurs uniquement
+            }
+            <PrivateRouteAdmin
+              exact
+              path="/dashboardAdmin"
+              component={DashboardAdmin}
+            />
+            <PrivateRouteAdmin exact path="/products" component={ProductPage} />
+            <PrivateRouteAdmin exact path="/users" component={UserPage} />
+            <PrivateRouteAdmin
+              exact
+              path="/categories"
+              component={CategoryPage}
+            />
 
-            <Route path="/dashboardLivreur">
-              <DashboardLivreur />
-            </Route>
-
-            <Route path="/products">
-              <ProductPage />
-            </Route>
-
-            <Route path="/users">
-              <UserPage />
-            </Route>
-
-            <Route path="/categories">
-              <CategoryPage />
-            </Route>
-
-            <Route path="/commandes">
-              <CommandePage />
-            </Route>
-
-            <Route path="/deliveries">
-              <DeliveryPage />
-            </Route>
+            {
+              //accessible aux livreurs uniquement
+            }
+            <PrivateRouteLivreur
+              exact
+              path="/dashboardLivreur"
+              component={DashboardLivreur}
+            />
+            <PrivateRouteLivreur
+              exact
+              path="/commandes"
+              component={CommandePage}
+            />
+            <PrivateRouteLivreur
+              exact
+              path="/deliveries"
+              component={DeliveryPage}
+            />
           </Switch>
         </Router>
       </div>
