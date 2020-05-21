@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-
-import Header from "../components/layout/Header";
+import HeaderLivreur from "../components/layout/HeaderLivreur";
 import Footer from "../components/layout/Footer";
 
 import ListCommande from "../components/body/Commandes/ListCommande";
@@ -9,14 +8,12 @@ import ListCommande from "../components/body/Commandes/ListCommande";
 import "../css/App.css";
 
 class CommandePage extends Component {
-  state = {
-  };
+  state = {};
 
   render() {
     return (
       <>
-        <Header
-        />
+        <HeaderLivreur />
         <ListCommande dataSearch={this.dataSearch} />
         <Footer />
       </>

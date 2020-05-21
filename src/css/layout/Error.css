@@ -1,0 +1,17 @@
+.not-found {
+  color: rgb(45, 170, 45);
+  font-size: 4rem;
+}
+
+.error-msg {
+  color: red;
+  font-size: 20px;
+}
+
+.small {
+  color: grey;
+}
+
+.introuvable {
+  text-align: center;
+}

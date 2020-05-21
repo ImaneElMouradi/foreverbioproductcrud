@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-
-import Header from "../components/layout/Header";
+import HeaderAdmin from "../components/layout/HeaderAdmin";
 import Footer from "../components/layout/Footer";
 
 import ListProduct from "../components/body/Products/ListProduct";
@@ -11,13 +10,13 @@ import "../css/App.css";
 class ProductPage extends Component {
   state = {
     search: "",
-    dataSearch: {}
+    dataSearch: {},
   };
 
   render() {
     return (
       <>
-        <Header
+        <HeaderAdmin
           onChangeSearchText={this.onChangeSearchText}
           onSubmitSearchText={this.onSubmitSearchText}
         />
