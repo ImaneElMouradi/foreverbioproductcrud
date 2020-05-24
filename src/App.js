@@ -8,6 +8,8 @@ import UserPage from "./Pages/UserPage";
 import CategoryPage from "./Pages/CategoryPage";
 import CommandePage from "./Pages/CommandePage";
 import DeliveryPage from "./Pages/DeliveryPage";
+import VendeurPage from "./Pages/VendeurPage";
+import ArticlePage from "./Pages/ArticlePage";
 import NotFound from "./Pages/NotFound";
 
 import Login from "./components/auth/Login";
@@ -38,6 +40,8 @@ class App extends Component {
             />
             <PrivateRouteAdmin exact path="/products" component={ProductPage} />
             <PrivateRouteAdmin exact path="/users" component={UserPage} />
+            <PrivateRouteAdmin exact path="/fournisseurs" component={VendeurPage} />
+            <PrivateRouteAdmin exact path="/articles" component={ArticlePage} />
             <PrivateRouteAdmin
               exact
               path="/categories"
