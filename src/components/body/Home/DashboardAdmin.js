@@ -59,7 +59,7 @@ export default class DashboardAdmin extends Component {
           <div className="col-2 center-block text-center">
             <Link to="/commandesAll">
               <img alt="" src={commandes} />
-              <p className="text-dashboard">Articles</p>
+              <p className="text-dashboard">Commandes</p>
             </Link>
           </div>
         </div>
