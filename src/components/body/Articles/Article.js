@@ -12,24 +12,18 @@ class Article extends Component {
   };
 
   toggleModalDeleteArticle = () => {
-    this.setState(prevState => ({
-      modalDeleteArticle: !prevState.modalDeleteArticle
+    this.setState((prevState) => ({
+      modalDeleteArticle: !prevState.modalDeleteArticle,
     }));
   };
 
   toggleModalUpdateArticle = () => {
-    this.setState(prevState => ({
-      modalUpdateArticle: !prevState.modalUpdateArticle
+    this.setState((prevState) => ({
+      modalUpdateArticle: !prevState.modalUpdateArticle,
     }));
   };
 
-
-
-  componentDidMount = () => {
-  
-  };
-
-
+  componentDidMount = () => {};
 
   render() {
     const {
@@ -38,39 +32,46 @@ class Article extends Component {
       dateCreation,
       categorie,
       titre,
-      text,     
-      imageurl
+      text,
+      imageurl,
     } = this.props.Article;
 
     return (
       <>
-        <div className="card col-sm-12 col-md-4 col-lg-3" style={{ width: "18rem" }}>
-          <img src={imageurl} className="card-img-top product-image" alt="..." />
+        <div
+          className="card col-sm-12 col-md-4 col-lg-3"
+          style={{ width: "18rem" }}
+        >
+          <img
+            src={imageurl}
+            className="card-img-top product-image"
+            alt="..."
+          />
           <div className="card-body">
-            <h5 className="card-title">{titre}</h5>
-            <p className="card-text product-desc">{text}</p>
+            <h5 className="card-title article-title">{titre}</h5>
+            <p className="card-text article-desc">{text}</p>
             <p className="product-src">
               <i>{editeur}</i>
             </p>
           </div>
           <ul className="list-group list-group-flush">
-          <li className="list-group-item">
+            <li className="list-group-item">
               <b>Date de création :</b> {dateCreation}
-          </li>
+            </li>
             <li className="list-group-item">
               <b>Catégorie:</b> {categorie}
             </li>
           </ul>
           <div className="card-body m-auto">
             <button className="delete" onClick={this.toggleModalDeleteArticle}>
-              <i className="fas fa-trash-alt"></i>
+              <i className="fas fa-trash-alt" />
             </button>
             <button className="update" onClick={this.toggleModalUpdateArticle}>
-              <i className="fas fa-pen"></i>
+              <i className="fas fa-pen" />
             </button>
           </div>
         </div>
-        
+
         <ModalDeleteArticle
           id={id}
           modalDeleteArticle={this.state.modalDeleteArticle}
