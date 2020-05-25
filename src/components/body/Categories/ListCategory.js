@@ -30,7 +30,9 @@ class ListCategory extends Component {
 
   onSubmitSearchText = () => {
     axios
-      .get("http://localhost:9092/category?search=" + this.state.search)
+      .get(
+        `${process.env.REACT_APP_API_URL}/category?search=` + this.state.search
+      )
       .then((res) => {
         const categories = res.data;
         this.setState({ categories });

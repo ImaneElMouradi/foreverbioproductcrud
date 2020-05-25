@@ -1,0 +1,28 @@
+.homepage {
+  height: 100vh;
+}
+.logo {
+  width: 200px;
+  text-align: center;
+}
+
+.homepage-text {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.homepage-content {
+  margin-top: 50px;
+  margin: auto;
+  height: 500px;
+  width: 1000px;
+}
+
+.homepage-btn {
+  font-size: 1.7rem;
+  color: white;
+  background-color: #27b574;
+  border-radius: 7px;
+  border: none;
+  padding: 10px;
+}

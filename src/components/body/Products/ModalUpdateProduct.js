@@ -27,28 +27,31 @@ class UpdateProduct extends Component {
   };
 
   fetchProductById = () => {
-    axios.get(`http://localhost:9092/product/${this.props.id}`).then((res) => {
-      const {
-        idCat,
-        nom,
-        description,
-        source,
-        unit,
-        etat,
-        prix,
-        qte,
-        url,
-      } = res.data;
-      this.setState({
-        idCat,
-        nom,
-        description,
-        source,
-        unit,
-        etat,
-        prix,
-        qte,
-        url,
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`)
+      .then((res) => {
+        const {
+          idCat,
+          nom,
+          description,
+          source,
+          unit,
+          etat,
+          prix,
+          qte,
+          url,
+        } = res.data;
+        this.setState({
+          idCat,
+          nom,
+          description,
+          source,
+          unit,
+          etat,
+          prix,
+          qte,
+          url,
+        });
       });
     });
   };

@@ -8,6 +8,8 @@ import UserPage from "./Pages/UserPage";
 import CategoryPage from "./Pages/CategoryPage";
 import CommandePage from "./Pages/CommandePage";
 import DeliveryPage from "./Pages/DeliveryPage";
+import VendeurPage from "./Pages/VendeurPage";
+import ArticlePage from "./Pages/ArticlePage";
 import NotFound from "./Pages/NotFound";
 
 import Login from "./components/auth/Login";
@@ -17,6 +19,8 @@ import DashboardLivreur from "./components/body/Home/DashboardLivreur";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import PrivateRouteLivreur from "./routes/PrivateRouteLivreur";
 
+import HomePage from "./components/body/Home/HomePage";
+
 class App extends Component {
   render() {
     const account = JSON.parse(localStorage.getItem("user"));
@@ -24,7 +28,9 @@ class App extends Component {
       <div>
         <Router>
           <Switch>
-            <Route path="/" exact>
+            <Route exact path="/" component={HomePage} />
+
+            <Route path="/login" exact>
               <Login />
             </Route>
 
@@ -38,6 +44,8 @@ class App extends Component {
             />
             <PrivateRouteAdmin exact path="/products" component={ProductPage} />
             <PrivateRouteAdmin exact path="/users" component={UserPage} />
+            <PrivateRouteAdmin exact path="/fournisseurs" component={VendeurPage} />
+            <PrivateRouteAdmin exact path="/articles" component={ArticlePage} />
             <PrivateRouteAdmin
               exact
               path="/categories"

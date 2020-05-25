@@ -7,7 +7,7 @@ const PrivateRouteLivreur = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      !isLoginLivreur() ? <Redirect to="/" /> : <Component {...props} />
+      !isLoginLivreur() ? <Redirect to="/login" /> : <Component {...props} />
     }
   />
 );
