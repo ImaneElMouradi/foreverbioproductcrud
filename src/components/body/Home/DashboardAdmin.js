@@ -25,31 +25,31 @@ export default class DashboardAdmin extends Component {
         </h3>
 
         <div className="row container-dash">
-          <div className="col-4 center-block text-center">
+          <div className="col-3 center-block text-center">
             <Link to="/products">
               <img alt="" src={products} />
               <p className="text-dashboard">Produits</p>{" "}
             </Link>
           </div>
-          <div className="col-4 center-block text-center">
+          <div className="col-2 center-block text-center">
             <Link to="/users">
               <img alt="" src={users} />
               <p className="text-dashboard">Utilisateurs</p>
             </Link>
           </div>
-          <div className="col-4 center-block text-center">
+          <div className="col-3 center-block text-center">
             <Link to="/categories">
               <img alt="" src={categories} />
               <p className="text-dashboard">Catégories</p>
             </Link>
           </div>
-          <div className="col-4 center-block text-center">
+          <div className="col-2 center-block text-center">
             <Link to="/fournisseurs">
               <img alt="" src={fournisseurs} />
               <p className="text-dashboard">Fournisseurs</p>
             </Link>
           </div>
-          <div className="col-4 center-block text-center">
+          <div className="col-2 center-block text-center">
             <Link to="/articles">
               <img alt="" src={articles} />
               <p className="text-dashboard">Articles</p>
