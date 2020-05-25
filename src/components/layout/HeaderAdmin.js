@@ -57,6 +57,11 @@ class HeaderAdmin extends Component {
                     Fournisseurs
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink href="/articles" className="nav-element">
+                    Articles 
+                  </NavLink>
+                </NavItem>
               </Nav>
               <button className="btn btn-success ml-auto mr-1">
                 <i className="fas fa-user-circle" />
