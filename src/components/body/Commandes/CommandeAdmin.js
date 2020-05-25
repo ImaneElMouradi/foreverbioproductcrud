@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "../../../css/body/Commande.css";
 import ModalShowUser from "./ModalShowUser";
 import ModalShowProducts from "./ModalShowProducts";
+import ModalShowLivreur from "./ModalShowLivreur";
 
 import axios from "axios";
 
@@ -10,11 +11,14 @@ class CommandeAdmin extends Component {
   state = {
     modalShowUser: false,
     modalShowProducts: false,
+    modalShowLivreur: false,
     idLivreur: 3,
     state: "",
+    livreur: {},
   };
 
   componentDidMount() {
+    this.fetchLivreur();
     this.setState({ state: this.props.commande.state });
   }
 
@@ -28,6 +32,13 @@ class CommandeAdmin extends Component {
   toggleModalShowProducts = () => {
     this.setState((prevState) => ({
       modalShowProducts: !prevState.modalShowProducts,
+    }));
+  };
+
+  toggleModalShowLivreur = () => {
+    console.log(!this.modalShowLivreur);
+    this.setState((prevState) => ({
+      modalShowLivreur: !prevState.modalShowLivreur,
     }));
   };
 
@@ -47,6 +58,24 @@ class CommandeAdmin extends Component {
       )
       .then(() => {
         this.props.fetchCommandes();
+      });
+  };
+
+  disableDeliveryIcon = () => {
+    if (
+      this.props.commande.idLivreur === 0 ||
+      this.props.commande.idLivreur === null
+    )
+      return "disabled";
+  };
+
+  fetchLivreur = () => {
+    const { idLivreur } = this.props.commande;
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/user/` + idLivreur)
+      .then((res) => {
+        const livreur = res.data;
+        this.setState({ livreur });
       });
   };
 
@@ -72,6 +101,12 @@ class CommandeAdmin extends Component {
           <td className="cell">{total} Dhs</td>
 
           <td className="cell">
+            <button
+              className={`delivery ${this.disableDeliveryIcon()}`}
+              onClick={this.toggleModalShowLivreur}
+            >
+              <i class="fas fa-truck-loading" />
+            </button>
             <button className="update" onClick={this.toggleModalShowUser}>
               <i className="fas fa-user" />
             </button>
@@ -80,6 +115,13 @@ class CommandeAdmin extends Component {
             </button>
           </td>
         </tr>
+
+        <ModalShowLivreur
+          id={id}
+          modalShowLivreur={this.state.modalShowLivreur}
+          livreur={this.state.livreur}
+          toggleModalShowLivreur={this.toggleModalShowLivreur}
+        />
 
         <ModalShowUser
           id={id}
