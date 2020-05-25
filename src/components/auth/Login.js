@@ -26,7 +26,7 @@ export default class Login extends Component {
       // this.clearValidation();
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/signIn`, {
+        .post(`http://localhost:9092/signIn`, {
           email: this.state.email,
           password: this.state.password,
         })

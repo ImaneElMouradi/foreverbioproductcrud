@@ -28,7 +28,7 @@ class UpdateProduct extends Component {
 
   fetchProductById = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/product/${this.props.id}`)
+      .get(`http://localhost:9092/product/${this.props.id}`)
       .then((res) => {
         const {
           idCat,

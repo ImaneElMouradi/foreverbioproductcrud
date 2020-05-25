@@ -109,7 +109,7 @@ class ModalAddProduct extends Component {
           url,
         } = this.state;
         axios
-          .post(`${process.env.REACT_APP_API_URL}/product`, {
+          .post(`http://localhost:9092/product`, {
             idCat,
             nom,
             description,
