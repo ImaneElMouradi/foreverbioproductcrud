@@ -46,28 +46,26 @@ class UpdateUser extends Component {
   };
 
   fetchUserById = () => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/user/${this.props.id}`)
-      .then((res) => {
-        const {
-          firstName,
-          lastName,
-          birthDate,
-          password,
-          role,
-          email,
-          url,
-        } = res.data;
-        this.setState({
-          firstName,
-          lastName,
-          birthDate,
-          password,
-          role,
-          email,
-          url,
-        });
+    axios.get(`http://localhost:9092/user/${this.props.id}`).then((res) => {
+      const {
+        firstName,
+        lastName,
+        birthDate,
+        password,
+        role,
+        email,
+        url,
+      } = res.data;
+      this.setState({
+        firstName,
+        lastName,
+        birthDate,
+        password,
+        role,
+        email,
+        url,
       });
+    });
   };
 
   componentDidMount = () => {
@@ -93,7 +91,7 @@ class UpdateUser extends Component {
       url,
     } = this.state;
     axios
-      .put(`${process.env.REACT_APP_API_URL}/user/${this.props.id}`, {
+      .put(`http://localhost:9092/user/${this.props.id}`, {
         firstName,
         lastName,
         birthDate,

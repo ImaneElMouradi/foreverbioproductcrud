@@ -10,18 +10,16 @@ class ListCommande extends Component {
   };
 
   fetchCommandes = async () => {
-    return axios
-      .get(`${process.env.REACT_APP_API_URL}/commandes`)
-      .then((res) => {
-        console.log(res.data);
-        const commande = res.data.filter(
-          (commande) => commande.state !== "Achevé"
-        );
+    return axios.get(`http://localhost:9092/commandes`).then((res) => {
+      console.log(res.data);
+      const commande = res.data.filter(
+        (commande) => commande.state !== "Achevé"
+      );
 
-        console.log(commande);
+      console.log(commande);
 
-        this.setState({ commande });
-      });
+      this.setState({ commande });
+    });
   };
 
   componentDidMount = () => {

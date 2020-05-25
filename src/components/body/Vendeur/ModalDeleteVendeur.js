@@ -3,27 +3,28 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import axios from "axios";
 
-class ModalDeleteCategory extends Component {
+class ModalDeleteVendeur extends Component {
   handleDelete = () => {
     console.log("delete", this.props.id);
-    axios.delete(`http://localhost:9092/category/${this.props.id}`).then(() => {
-      this.props.toggleModalDeleteCategory();
-      this.props.fetchCategories();
+    axios.delete(`http://localhost:9092/Vendeur/${this.props.id}`).then(() => {
+      this.props.toggleModalDeleteVendeur();
+      this.props.fetchVendeurs();
     });
   };
+
   render() {
     return (
       <>
-        {this.props.modalDeleteCategory && (
+        {this.props.modalDeleteVendeur && (
           <Modal
-            isOpen={this.props.modalDeleteCategory}
-            toggle={this.props.toggleModalDeleteCategory}
+            isOpen={this.props.modalDeleteVendeur}
+            toggle={this.props.toggleModalDeleteVendeur}
           >
-            <ModalHeader toggle={this.props.toggleModalDeleteCategory}>
+            <ModalHeader toggle={this.props.toggleModalDeleteVendeur}>
               Confirmation de la suppression
             </ModalHeader>
             <ModalBody>
-              Êtes-vous sûr de vouloir supprimer cet catégorie?
+              Êtes-vous sûr de vouloir supprimer ce fournisseur?
             </ModalBody>
             <ModalFooter>
               <Button color="danger" onClick={this.handleDelete}>
@@ -31,7 +32,7 @@ class ModalDeleteCategory extends Component {
               </Button>
               <Button
                 color="secondary"
-                onClick={this.props.toggleModalDeleteCategory}
+                onClick={this.props.toggleModalDeleteVendeur}
               >
                 Annuler
               </Button>
@@ -42,5 +43,4 @@ class ModalDeleteCategory extends Component {
     );
   }
 }
-
-export default ModalDeleteCategory;
+export default ModalDeleteVendeur;

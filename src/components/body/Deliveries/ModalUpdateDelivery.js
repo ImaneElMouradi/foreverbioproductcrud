@@ -28,7 +28,7 @@ export default class ModalUpdateDelivery extends Component {
   handleUpdate = () => {
     axios
       .put(
-        `${process.env.REACT_APP_API_URL}/commandes/${this.props.id}?state=${
+        `http://localhost:9092/commandes/${this.props.id}?state=${
           this.state.state
         }&idLivreur=${this.props.idLivreur}`
       )

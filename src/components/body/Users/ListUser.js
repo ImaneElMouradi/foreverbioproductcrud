@@ -11,7 +11,7 @@ class ListUser extends Component {
   };
 
   fetchUsers = async () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}/user`).then((res) => {
+    return axios.get(`http://localhost:9092/user`).then((res) => {
       const users = res.data;
       console.log(users);
       this.setState({ users });
@@ -28,7 +28,7 @@ class ListUser extends Component {
 
   onSubmitSearchText = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/user?search=` + this.state.search)
+      .get(`http://localhost:9092/user?search=` + this.state.search)
       .then((res) => {
         const users = res.data;
         this.setState({ users });
