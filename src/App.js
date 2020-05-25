@@ -7,6 +7,7 @@ import "./css/App.css";
 import UserPage from "./Pages/UserPage";
 import CategoryPage from "./Pages/CategoryPage";
 import CommandePage from "./Pages/CommandePage";
+import CommandeAllPage from "./Pages/CommandeAllPage";
 import DeliveryPage from "./Pages/DeliveryPage";
 import VendeurPage from "./Pages/VendeurPage";
 import ArticlePage from "./Pages/ArticlePage";
@@ -58,7 +59,7 @@ class App extends Component {
             <PrivateRouteAdmin
               exact
               path="/commandesAll"
-              component={CommandePage}
+              component={CommandeAllPage}
             />
             {
               //accessible aux livreurs uniquement
