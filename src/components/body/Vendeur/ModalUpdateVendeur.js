@@ -8,7 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
+  FormText,
 } from "reactstrap";
 
 import axios from "axios";
@@ -18,58 +18,51 @@ class UpdateVendeur extends Component {
     nom: "",
     prenom: "",
     ville: "",
-    region:"",
+    region: "",
     img: "",
-    selectedFile: null
+    selectedFile: null,
   };
 
-  fileSelectedHandler = event => {
+  fileSelectedHandler = (event) => {
     this.setState({
-      selectedFile: event.target.file[0]
-    })
-  }
-
-  fileUploadHandler = () => {
-    axios.post(
-      'https://api.imgur.com/3/upload', {
-      image: this.selectedFile,
-    }, {
-      headers: {
-        "Authorization": "Client-ID b22b3f6d28510a1",
-
-      }
-    }
-    )
-
-  }
-
-  fetchVendeurById = () => {
-    axios.get(`http://localhost:9092/Vendeur/${this.props.id}`).then(res => {
-      const {
-        nom,
-        prenom,
-        ville,
-        region,
-        img
-      } = res.data;
-      this.setState({
-        nom,
-        prenom,
-        ville,
-        region,
-        img
-      });
-
+      selectedFile: event.target.file[0],
     });
   };
 
+  fileUploadHandler = () => {
+    axios.post(
+      "https://api.imgur.com/3/upload",
+      {
+        image: this.selectedFile,
+      },
+      {
+        headers: {
+          Authorization: "Client-ID b22b3f6d28510a1",
+        },
+      }
+    );
+  };
 
+  fetchVendeurById = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/Vendeur/${this.props.id}`)
+      .then((res) => {
+        const { nom, prenom, ville, region, img } = res.data;
+        this.setState({
+          nom,
+          prenom,
+          ville,
+          region,
+          img,
+        });
+      });
+  };
 
   componentDidMount = () => {
     this.fetchVendeurById();
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -78,21 +71,14 @@ class UpdateVendeur extends Component {
   };
 
   handleUpdate = async () => {
-
-    const {
-      nom,
-      prenom,
-      ville,
-      region,
-      url
-    } = this.state;
+    const { nom, prenom, ville, region, url } = this.state;
     axios
-      .put(`http://localhost:9092/Vendeur/${this.props.id}`, {
+      .put(`${process.env.REACT_APP_API_URL}/Vendeur/${this.props.id}`, {
         nom,
         prenom,
         ville,
         region,
-        url
+        url,
       })
       .then(async () => {
         console.log(" Utilisateur modifié modifié ", this.props.id);
@@ -102,13 +88,7 @@ class UpdateVendeur extends Component {
   };
 
   render() {
-    const {
-      nom,
-      prenom,
-      region,
-      ville,
-      img,
-    } = this.state;
+    const { nom, prenom, region, ville, img } = this.state;
     return (
       <Modal
         isOpen={this.props.modalUpdateVendeur}
@@ -118,7 +98,6 @@ class UpdateVendeur extends Component {
           Modifier un fournisseur
         </ModalHeader>
         <ModalBody>
-
           <FormGroup>
             <img
               src={img}
@@ -129,18 +108,23 @@ class UpdateVendeur extends Component {
                 display: "block",
                 margin: "auto",
                 marginBottom: "3px",
-                borderRadius: "50%"
+                borderRadius: "50%",
               }}
             />
           </FormGroup>
 
           <FormGroup>
             <Label for="exampleFile">Image</Label>
-            <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+            <Input
+              type="file"
+              name="file"
+              id="exampleFile"
+              accept="image/*"
+              onChange={this.fileSelectedHandler}
             />
             <FormText color="muted">
               Veuillez choisir une image de profil.
-        </FormText>
+            </FormText>
           </FormGroup>
 
           <FormGroup>
@@ -151,8 +135,7 @@ class UpdateVendeur extends Component {
               name="prenom"
               onChange={this.handleOnChange}
               autoComplete="off"
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Nom</Label>
@@ -162,8 +145,7 @@ class UpdateVendeur extends Component {
               name="nom"
               autoComplete="off"
               onChange={this.handleOnChange}
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Ville</Label>
@@ -174,8 +156,7 @@ class UpdateVendeur extends Component {
               name="ville"
               autoComplete="off"
               onChange={this.handleOnChange}
-            ></Input>
-
+            />
           </FormGroup>
           <FormGroup>
             <Label>Région</Label>
@@ -187,16 +168,26 @@ class UpdateVendeur extends Component {
               defaultValue="Choisir un région..."
             >
               <option disabled>Choisir un région...</option>
-              <option value="Rabat-Salé-Kénitra"> Région Rabat-Salé-Kénitra</option>
-                <option value="Nord Oriental"> Région Nord Oriental</option>
-                <option value="Grand Casablanca-Settat"> Région Grand Casablanca-Settat</option>
-                <option value="Souss Grand Sud"> Région Souss Grand sud</option>
-                <option value="Marrakech-Beni Mellal-Moyen Atlas"> Région Marrakech-Beni Mellal-Moyen Atlas</option>
-                <option value="Fés-Meknès-Al wahates"> Région Fés-Meknès-Al wahates</option>
+              <option value="Rabat-Salé-Kénitra">
+                {" "}
+                Région Rabat-Salé-Kénitra
+              </option>
+              <option value="Nord Oriental"> Région Nord Oriental</option>
+              <option value="Grand Casablanca-Settat">
+                {" "}
+                Région Grand Casablanca-Settat
+              </option>
+              <option value="Souss Grand Sud"> Région Souss Grand sud</option>
+              <option value="Marrakech-Beni Mellal-Moyen Atlas">
+                {" "}
+                Région Marrakech-Beni Mellal-Moyen Atlas
+              </option>
+              <option value="Fés-Meknès-Al wahates">
+                {" "}
+                Région Fés-Meknès-Al wahates
+              </option>
             </Input>
           </FormGroup>
-
-
         </ModalBody>
         <ModalFooter>
           <Button color="success" onClick={this.handleUpdate}>

@@ -8,7 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
+  FormText,
 } from "reactstrap";
 
 import axios from "axios";
@@ -30,69 +30,62 @@ class ModalAddArticle extends Component {
     titreError: "",
     textError: "",
     selectedFile: null,
-    selectedFileBinary: ""
+    selectedFileBinary: "",
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   toggleNewArticleModal = () => {
-    this.setState(prevState => ({
-      modalNewArticle: !prevState.modalNewArticle
+    this.setState((prevState) => ({
+      modalNewArticle: !prevState.modalNewArticle,
     }));
   };
 
-  fileSelectedHandler = event => {
-
-    this.getBase64(event.target.files[0]).then(data => {
+  fileSelectedHandler = (event) => {
+    this.getBase64(event.target.files[0]).then((data) => {
       this.setState({
         selectedFileBinary: data,
-      })
+      });
       console.log(this.state.selectedFileBinary);
     });
     this.setState({
-      selectedFile: event.target.files[0]
-
-    })
-
-  }
+      selectedFile: event.target.files[0],
+    });
+  };
 
   getBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
-  }
+  };
 
   fileUploadHandler = async () => {
     console.log(this.state.selectedFile);
     return axios.post(
-      'https://api.imgur.com/3/image', {
-      image: "'" + this.state.selectedFileBinary.split(",")[1] + "'",
-
-
-    }, {
-      headers: {
-        "Authorization": "Client-ID b22b3f6d28510a1",
+      "https://api.imgur.com/3/image",
+      {
+        image: "'" + this.state.selectedFileBinary.split(",")[1] + "'",
+      },
+      {
+        headers: {
+          Authorization: "Client-ID b22b3f6d28510a1",
+        },
       }
-    }
-    )
+    );
+  };
 
-  }
-
-  handleAddArticle = e => {
-
-
+  handleAddArticle = (e) => {
     e.preventDefault();
-    const isValid = true //this.validate();
+    const isValid = true; //this.validate();
     console.log("you pressed add");
 
     if (this.validate()) {
-
-      this.fileUploadHandler().then(result => {
+      this.fileUploadHandler().then((result) => {
         this.setState({
           imageurl: result.data.data.link,
         });
@@ -103,24 +96,23 @@ class ModalAddArticle extends Component {
           categorie,
           titre,
           text,
-          imageurl
+          imageurl,
         } = this.state;
         axios
-          .post("http://localhost:9092/Article", {
+          .post(`${process.env.REACT_APP_API_URL}/Article`, {
             editeur,
             datecreation,
             categorie,
             titre,
             text,
-            imageurl
+            imageurl,
           })
           .then(() => {
             console.log("Article ajouté");
             this.toggleNewArticleModal();
             this.props.fetchArticles();
           });
-
-      })
+      });
 
       this.clearFormError();
     }
@@ -131,7 +123,7 @@ class ModalAddArticle extends Component {
       datecreationError: "",
       categorieError: "",
       titreError: "",
-      textError: ""
+      textError: "",
     });
   };
 
@@ -150,25 +142,24 @@ class ModalAddArticle extends Component {
     }
 
     if (!this.state.datecreationError) {
-       datecreationError = "La date de création est obligatoire";
-     }
+      datecreationError = "La date de création est obligatoire";
+    }
 
     if (!this.state.categorieError) {
       categorieError = "Veuillez précisez la catégorie";
     }
-    if (titreError || textError ||  categorieError) {
+    if (titreError || textError || categorieError) {
       this.setState({ titreError, textError, categorieError });
       return false;
     }
     return true;
   };
 
-
   render() {
     return (
       <>
         <button className="add" onClick={this.toggleNewArticleModal}>
-          <i className="fas fa-plus"></i> Ajouter un Article
+          <i className="fas fa-plus" /> Ajouter un Article
         </button>
         <div>
           <Modal
@@ -181,7 +172,11 @@ class ModalAddArticle extends Component {
             <ModalBody>
               <FormGroup>
                 <img
-                  src={this.state.selectedFile == null ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg" : this.state.selectedFileBinary}
+                  src={
+                    this.state.selectedFile == null
+                      ? "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg"
+                      : this.state.selectedFileBinary
+                  }
                   alt=""
                   style={{
                     width: "100px",
@@ -190,16 +185,21 @@ class ModalAddArticle extends Component {
                     margin: "auto",
                     objectFit: "cover",
                     marginBottom: "3px",
-                    borderRadius: "8px"
+                    borderRadius: "8px",
                   }}
                 />
                 <FormGroup>
                   <Label for="exampleFile">Image</Label>
-                  <Input type="file" name="file" id="exampleFile" accept="image/*" onChange={this.fileSelectedHandler}
+                  <Input
+                    type="file"
+                    name="file"
+                    id="exampleFile"
+                    accept="image/*"
+                    onChange={this.fileSelectedHandler}
                   />
                   <FormText color="muted">
                     Veuillez choisir une image pour l'article.
-        </FormText>
+                  </FormText>
                 </FormGroup>
                 <Label>Nom de la catégorie</Label>
                 <Input
@@ -221,7 +221,7 @@ class ModalAddArticle extends Component {
                   name="titre"
                   onChange={this.handleOnChange}
                   autoComplete="off"
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.titreError}
                 </p>
@@ -232,7 +232,7 @@ class ModalAddArticle extends Component {
                   placeholder="Texte..."
                   name="text"
                   onChange={this.handleOnChange}
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.textError}
                 </p>
@@ -251,17 +251,14 @@ class ModalAddArticle extends Component {
                   placeholder="Date..."
                   name="datecreation"
                   onChange={this.handleOnChange}
-                ></Input>
+                />
                 <p style={{ fontSize: 12, color: "red" }}>
                   {this.state.datecreationError}
                 </p>
               </FormGroup>
             </ModalBody>
             <ModalFooter>
-              <Button color="success" onClick={
-
-                this.handleAddArticle
-              }>
+              <Button color="success" onClick={this.handleAddArticle}>
                 Ajouter
               </Button>
               <Button

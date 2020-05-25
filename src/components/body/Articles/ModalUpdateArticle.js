@@ -7,7 +7,7 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
 } from "reactstrap";
 
 import axios from "axios";
@@ -19,66 +19,61 @@ class UpdateArticle extends Component {
     categorie: "",
     titre: "",
     text: "",
-    imageurl: ""
+    imageurl: "",
   };
 
   fetchArticleById = () => {
-    axios.get(`http://localhost:9092/Article/${this.props.id}`).then(res => {
-      const {
-        editeur,
-        datecreation,
-        categorie,
-        titre,
-        text,
-        imageurl   
-      } = res.data;
-      this.setState({
-        editeur,
-        datecreation,
-        categorie,
-        titre,
-        text,
-        imageurl   
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/Article/${this.props.id}`)
+      .then((res) => {
+        const {
+          editeur,
+          datecreation,
+          categorie,
+          titre,
+          text,
+          imageurl,
+        } = res.data;
+        this.setState({
+          editeur,
+          datecreation,
+          categorie,
+          titre,
+          text,
+          imageurl,
+        });
       });
-      
-    });
   };
-
-  
 
   componentDidMount = () => {
     this.fetchArticleById();
-    
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   fetchArticlesUpdated = () => {
     this.props.fetchArticles();
-    
   };
 
   handleUpdate = async () => {
-
-
     const {
       editeur,
       datecreation,
       categorie,
       titre,
       text,
-      imageurl   
+      imageurl,
     } = this.state;
     axios
-      .put(`http://localhost:9092/Article/${this.props.id}`, {
-      editeur,
-      datecreation,
-      categorie,
-      titre,
-      text,
-      imageurl 
+      .put(`${process.env.REACT_APP_API_URL}/Article/${this.props.id}`, {
+        editeur,
+        datecreation,
+        categorie,
+        titre,
+        text,
+        imageurl,
       })
       .then(async () => {
         console.log(" Article modifié ", this.props.id);
@@ -94,7 +89,7 @@ class UpdateArticle extends Component {
       categorie,
       titre,
       text,
-      imageurl 
+      imageurl,
     } = this.state;
     return (
       <Modal
@@ -115,7 +110,7 @@ class UpdateArticle extends Component {
                 display: "block",
                 margin: "auto",
                 marginBottom: "3px",
-                borderRadius: "8px"
+                borderRadius: "8px",
               }}
             />
             <Label>Catégorie</Label>
@@ -139,7 +134,7 @@ class UpdateArticle extends Component {
               name="titre"
               onChange={this.handleOnChange}
               value={titre}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Corps de l'article</Label>
@@ -149,7 +144,7 @@ class UpdateArticle extends Component {
               type="textarea"
               onChange={this.handleOnChange}
               value={text}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Editeur</Label>
@@ -158,7 +153,7 @@ class UpdateArticle extends Component {
               name="editeur"
               onChange={this.handleOnChange}
               value={editeur}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>Date de création</Label>
@@ -167,7 +162,7 @@ class UpdateArticle extends Component {
               name="datecreation"
               onChange={this.handleOnChange}
               value={datecreation}
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label>L'url de l'image</Label>
@@ -176,7 +171,7 @@ class UpdateArticle extends Component {
               name="url"
               onChange={this.handleOnChange}
               value={imageurl}
-            ></Input>
+            />
           </FormGroup>
         </ModalBody>
         <ModalFooter>

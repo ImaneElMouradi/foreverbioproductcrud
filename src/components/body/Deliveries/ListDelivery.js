@@ -11,16 +11,18 @@ export default class ListDelivery extends Component {
   };
 
   fetchCommandesByIdLivreur = async () => {
-    return axios.get(`http://localhost:9092/commandes`).then((res) => {
-      console.log(res.data);
-      let commande = res.data.filter(
-        (commande) => commande.idLivreur === this.state.idLivreur
-      );
+    return axios
+      .get(`${process.env.REACT_APP_API_URL}/commandes`)
+      .then((res) => {
+        console.log(res.data);
+        let commande = res.data.filter(
+          (commande) => commande.idLivreur === this.state.idLivreur
+        );
 
-      console.log(commande);
+        console.log(commande);
 
-      this.setState({ commande });
-    });
+        this.setState({ commande });
+      });
   };
 
   componentDidMount = () => {

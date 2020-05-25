@@ -10,17 +10,16 @@ import "../../../css/body/ListProduct.css";
 
 class ListArticle extends Component {
   state = {
-    articles: []
+    articles: [],
   };
 
   fetchArticles = async () => {
-    console.log("trying to fetch")
-    return axios.get("http://localhost:9092/Article").then(res => {
+    console.log("trying to fetch");
+    return axios.get(`${process.env.REACT_APP_API_URL}/Article`).then((res) => {
       const articles = res.data;
 
       this.setState({ articles });
-      console.log(this.state.articles)
-
+      console.log(this.state.articles);
     });
   };
 
@@ -29,23 +28,22 @@ class ListArticle extends Component {
     console.log(this.state.articles);
   };
 
-  onChangeSearchText = e => {
+  onChangeSearchText = (e) => {
     this.setState({ search: e.target.value });
   };
 
   onSubmitSearchText = () => {
     axios
-      .post("http://localhost:9092/Article/search", {
-        text: this.state.search
+      .post(`${process.env.REACT_APP_API_URL}/Article/search`, {
+        text: this.state.search,
       })
-      .then(res => {
+      .then((res) => {
         const articles = res.data;
         this.setState({ articles });
       });
   };
 
   render() {
-
     return (
       <>
         <div className="search-container search">
@@ -57,18 +55,17 @@ class ListArticle extends Component {
             onChange={this.onChangeSearchText}
           />
           <button type="submit" onClick={this.onSubmitSearchText}>
-            <i className="fa fa-search"></i>
+            <i className="fa fa-search" />
           </button>
           <button className="refresh ml-3" onClick={this.fetchArticles}>
-            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-redo-alt" />
           </button>
         </div>
 
-    <ModalAddArticle fetchArticles={this.fetchArticles} /> 
+        <ModalAddArticle fetchArticles={this.fetchArticles} />
 
         <div className="list-card row">
-          {this.state.articles.map(article => (
-           
+          {this.state.articles.map((article) => (
             <Article
               key={article.id}
               Article={article}

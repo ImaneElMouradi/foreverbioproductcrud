@@ -61,16 +61,18 @@ class UpdateCategory extends Component {
   };
 
   fetchCategoryById = () => {
-    axios.get(`http://localhost:9092/category/${this.props.id}`).then((res) => {
-      const { id, nom, url, description } = res.data;
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/category/${this.props.id}`)
+      .then((res) => {
+        const { id, nom, url, description } = res.data;
 
-      this.setState({
-        id,
-        nom,
-        url,
-        description,
+        this.setState({
+          id,
+          nom,
+          url,
+          description,
+        });
       });
-    });
   };
 
   componentDidMount = () => {
@@ -97,7 +99,7 @@ class UpdateCategory extends Component {
     }
     const { nom, url, description } = this.state;
     axios
-      .put(`http://localhost:9092/category/${this.props.id}`, {
+      .put(`${process.env.REACT_APP_API_URL}/category/${this.props.id}`, {
         nom,
         url,
         description,

@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-import { Table } from 'reactstrap';
+import { Table } from "reactstrap";
 import axios from "axios";
 
-
 import ModalAddVendeur from "../Vendeur/ModalAddVendeur";
-import Vendeur from "./Vendeur"
-
+import Vendeur from "./Vendeur";
 
 class ListVendeur extends Component {
   state = {
-    vendeurs: []
+    vendeurs: [],
   };
 
   fetchVendeurs = async () => {
-    return axios.get("http://localhost:9092/Vendeur").then(res => {
+    return axios.get(`${process.env.REACT_APP_API_URL}/Vendeur`).then((res) => {
       const vendeurs = res.data;
       console.log(vendeurs);
       this.setState({ vendeurs });
@@ -24,21 +22,22 @@ class ListVendeur extends Component {
     this.fetchVendeurs();
   };
 
-
   render() {
     return (
-        <>
+      <>
         <ModalAddVendeur fetchVendeurs={this.fetchVendeurs} />
-        <div style={
-          {
+        <div
+          style={{
             margin: "50px",
-
-          }
-        }>
-          <Table hover style={{
-            marginLeft: "auto",
-            marginRight: "auto"
-          }}>
+          }}
+        >
+          <Table
+            hover
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
             <thead>
               <tr>
                 <th>Photo</th>
@@ -49,23 +48,19 @@ class ListVendeur extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.vendeurs.map(vendeur => (
+              {this.state.vendeurs.map((vendeur) => (
                 <Vendeur
                   key={vendeur.id}
                   vendeur={vendeur}
                   fetchVendeurs={this.fetchVendeurs}
                 />
-
               ))}
-
             </tbody>
-
-          </Table >
-
+          </Table>
         </div>
-        </>
-
+      </>
     );
-}}
+  }
+}
 
 export default ListVendeur;

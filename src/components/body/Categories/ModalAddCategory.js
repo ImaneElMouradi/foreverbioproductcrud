@@ -77,7 +77,7 @@ class ModalAddCategory extends Component {
 
         const { nom, url, description } = this.state;
         axios
-          .post(`http://localhost:9092/category`, {
+          .post(`${process.env.REACT_APP_API_URL}/category`, {
             nom,
             url,
             description,

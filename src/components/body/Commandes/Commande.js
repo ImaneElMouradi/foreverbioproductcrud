@@ -41,7 +41,7 @@ class Commande extends Component {
     console.log("test");
     axios
       .put(
-        `http://localhost:9092/commandes/${
+        `${process.env.REACT_APP_API_URL}/commandes/${
           this.props.commande.id
         }?state=En cours&idLivreur=${this.state.idLivreur}`
       )

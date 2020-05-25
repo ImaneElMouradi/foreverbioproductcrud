@@ -6,10 +6,12 @@ import axios from "axios";
 class ModalDeleteCategory extends Component {
   handleDelete = () => {
     console.log("delete", this.props.id);
-    axios.delete(`http://localhost:9092/category/${this.props.id}`).then(() => {
-      this.props.toggleModalDeleteCategory();
-      this.props.fetchCategories();
-    });
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/category/${this.props.id}`)
+      .then(() => {
+        this.props.toggleModalDeleteCategory();
+        this.props.fetchCategories();
+      });
   };
   render() {
     return (

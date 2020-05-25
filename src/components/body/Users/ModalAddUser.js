@@ -94,7 +94,7 @@ class ModalAddUser extends Component {
         } = this.state;
 
         axios
-          .post(`http://localhost:9092/user`, {
+          .post(`${process.env.REACT_APP_API_URL}/user`, {
             firstName,
             lastName,
             birthDate,

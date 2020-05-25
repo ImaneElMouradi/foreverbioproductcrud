@@ -14,7 +14,7 @@ class ListProduct extends Component {
   };
 
   fetchProducts = () => {
-    return axios.get(`http://localhost:9092/product`).then((res) => {
+    return axios.get(`${process.env.REACT_APP_API_URL}/product`).then((res) => {
       const products = res.data;
       this.setState({ products });
     });
@@ -30,7 +30,7 @@ class ListProduct extends Component {
 
   onSubmitSearchText = () => {
     axios
-      .post(`http://localhost:9092/product/search`, {
+      .post(`${process.env.REACT_APP_API_URL}/product/search`, {
         text: this.state.search,
       })
       .then((res) => {
