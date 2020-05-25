@@ -44,14 +44,22 @@ class App extends Component {
             />
             <PrivateRouteAdmin exact path="/products" component={ProductPage} />
             <PrivateRouteAdmin exact path="/users" component={UserPage} />
-            <PrivateRouteAdmin exact path="/fournisseurs" component={VendeurPage} />
+            <PrivateRouteAdmin
+              exact
+              path="/fournisseurs"
+              component={VendeurPage}
+            />
             <PrivateRouteAdmin exact path="/articles" component={ArticlePage} />
             <PrivateRouteAdmin
               exact
               path="/categories"
               component={CategoryPage}
             />
-
+            <PrivateRouteAdmin
+              exact
+              path="/commandesAll"
+              component={CommandePage}
+            />
             {
               //accessible aux livreurs uniquement
             }

@@ -12,6 +12,7 @@ import users from "../../../images/users.png";
 import categories from "../../../images/categories.jpg";
 import fournisseurs from "../../../images/fournisseurs.jpg";
 import articles from "../../../images/article.png";
+import commandes from "../../../images/commandes.png";
 
 export default class DashboardAdmin extends Component {
   render() {
@@ -25,7 +26,7 @@ export default class DashboardAdmin extends Component {
         </h3>
 
         <div className="row container-dash">
-          <div className="col-3 center-block text-center">
+          <div className="col-2 center-block text-center">
             <Link to="/products">
               <img alt="" src={products} />
               <p className="text-dashboard">Produits</p>{" "}
@@ -49,9 +50,15 @@ export default class DashboardAdmin extends Component {
               <p className="text-dashboard">Fournisseurs</p>
             </Link>
           </div>
-          <div className="col-3 center-block text-center">
+          <div className="col-2 center-block text-center">
             <Link to="/articles">
               <img alt="" src={articles} />
+              <p className="text-dashboard">Articles</p>
+            </Link>
+          </div>
+          <div className="col-2 center-block text-center">
+            <Link to="/commandesAll">
+              <img alt="" src={commandes} />
               <p className="text-dashboard">Articles</p>
             </Link>
           </div>
