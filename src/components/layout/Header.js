@@ -26,7 +26,7 @@ class Header extends Component {
             light
             expand="md"
           >
-            <NavbarBrand href="/">
+            <NavbarBrand href="/login">
               {" "}
               Forever<em className="text-success">BIO </em>
             </NavbarBrand>

@@ -19,6 +19,8 @@ import DashboardLivreur from "./components/body/Home/DashboardLivreur";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import PrivateRouteLivreur from "./routes/PrivateRouteLivreur";
 
+import HomePage from "./components/body/Home/HomePage";
+
 class App extends Component {
   render() {
     const account = JSON.parse(localStorage.getItem("user"));
@@ -26,7 +28,9 @@ class App extends Component {
       <div>
         <Router>
           <Switch>
-            <Route path="/" exact>
+            <Route exact path="/" component={HomePage} />
+
+            <Route path="/login" exact>
               <Login />
             </Route>
 

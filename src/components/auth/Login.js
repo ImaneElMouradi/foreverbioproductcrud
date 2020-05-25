@@ -22,45 +22,52 @@ export default class Login extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    this.validate();
-    // this.clearValidation();
+    if (!this.validate()) {
+      // this.clearValidation();
 
-    axios
-      .post("http://localhost:9092/signIn", {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then(async (res) => {
-        let groupError = "";
-        if (res.data === "") {
-          groupError = "Email ou mot de passe incorrect.";
-        } else {
-          await localStorage.setItem("user", JSON.stringify(res.data));
-          //   console.log(res.data);
-        }
-        await this.setState({ groupError });
-      });
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/signIn`, {
+          email: this.state.email,
+          password: this.state.password,
+        })
+        .then(async (res) => {
+          let groupError = "";
+          if (res.data === "") {
+            groupError = "Email ou mot de passe incorrect.";
+          } else {
+            await localStorage.setItem("user", JSON.stringify(res.data));
+            this.clearValidation();
+            //   console.log(res.data);
+          }
+          await this.setState({ groupError });
+        });
 
-    console.log("submit");
+      console.log("submit");
+    }
   };
 
   validate = () => {
     let emailError = "";
     let passwordError = "";
+    let errors = false;
 
     if (this.state.email === "") {
       emailError = "Veuillez saisir votre email.";
+      errors = true;
     } else if (
       !this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
     ) {
       emailError = "Votre email est invalide.";
+      errors = true;
     }
 
     if (this.state.password === "") {
       passwordError = "Veuillez saisir votre mot de passe.";
+      errors = true;
     }
 
     this.setState({ emailError, passwordError });
+    return errors;
   };
 
   clearValidation = () => {

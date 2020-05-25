@@ -28,7 +28,7 @@ class HeaderAdmin extends Component {
             light
             expand="md"
           >
-            <NavbarBrand href="/">
+            <NavbarBrand href="/login">
               {" "}
               Forever<em className="text-success">BIO </em>
             </NavbarBrand>
@@ -59,7 +59,8 @@ class HeaderAdmin extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink href="/articles" className="nav-element">
-                    Articles 
+                    {" "}
+                    Articles
                   </NavLink>
                 </NavItem>
               </Nav>
